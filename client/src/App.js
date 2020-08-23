@@ -12,8 +12,8 @@ import Navbar from './Components/partials/navbar/navbar';
  * Import authentication routes
  * @void
  */
-import Signup from './Components/auth/signup/signup';
-import Login from './Components/auth/login/login';
+import Signup from './Components/auth/signup';
+import Login from './Components/auth/login';
 
 function App() {
   return (

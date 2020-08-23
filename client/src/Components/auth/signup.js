@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import classes from './signup.module.css'
+import classes from './auth.module.css'
 
 export default function Signup() {
     const [firstName, setFirstName] = useState('');
@@ -92,7 +92,7 @@ export default function Signup() {
                     <input
                         className={ classes.formInput }
                         name="password"
-                        type="text" 
+                        type="password" 
                         placeholder="password"
                         value={ password }
                         onChange={ (e) => setPassword( e.target.value )}/>
@@ -103,7 +103,7 @@ export default function Signup() {
                     <input
                         className={ classes.formInput }
                         name='confirm'
-                        type="text" 
+                        type="password" 
                         placeholder="confirm password"
                         value={ confirm }
                         onChange={ (e) => setConfirm( e.target.value )}
