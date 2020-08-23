@@ -1,28 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
+import { withRouter } from 'react-router-dom';
 import classes from './auth.module.css';
 
-export default function Login() {
+function Login(props) {
 
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const auth = useSelector( state => state.auth);
+    const errors = useSelector(state => state.errors);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        if(auth.isAuthenticated){
+            props.history.push('/');
+        }
+    }, [])
+
+
+    function onSubmit(e){
+        e.preventDefault();
+
+        let data = {
+            email,
+            password
+        }
+        
+        dispatch(loginUser(data, props.history))
+    }
 
     return (
         <div className={ classes.container }>
-            <form className={ classes.form }>
+            <form className={ classes.form } onSubmit={(e)=> onSubmit(e)}>
                 <h1>Login</h1>
                 <div className={ classes.formGroup}>
-                    <label for="username">Enter username:</label>
+                    <label htmlFor="email">Enter email:</label>
+                    <span>{errors.email}{errors.emailNotFound}</span>
                     <input
                         className={ classes.formInput }
-                        type="text"
-                        name="username"
-                        value={ username }
-                        placeholder="username"
-                        onChange={ (e) => setUsername( e.target.value )}
+                        type="email"
+                        name="email"
+                        value={ email }
+                        placeholder="email"
+                        onChange={ (e) => setEmail( e.target.value )}
                     />
                 </div>
                 <div className={ classes.formGroup}>
-                    <label for="password">Enter password:</label>
+                    <label htmlFor="password">Enter password:</label>
+                    <span>{errors.password}{errors.passwordIncorrect}</span>
                     <input
                         className={ classes.formInput }
                         type="password"
@@ -43,3 +70,5 @@ export default function Login() {
         </div>
     )
 }
+
+export default withRouter(Login);

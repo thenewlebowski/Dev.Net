@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
-import classes from './auth.module.css'
+import { useSelector, useDispatch } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
+import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import classes from './auth.module.css';
 
-export default function Signup() {
+function Signup(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
+    const [password2, setPassword2] = useState('');
     const [email, setEmail] = useState('');
 
+    const errors = useSelector(state => state.errors);
+
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        // setError({...errors})
+        // console.log(errors)
+    }, )
     
     function onSubmit(e){
         e.preventDefault();
@@ -17,14 +28,14 @@ export default function Signup() {
             lastName,
             username,
             password,
-            confirm,
+            password2,
             email
         }
-        console.log(data);
+        dispatch(registerUser(data, props.history))
     }        
 
     return (
-        <div className={ classes.container}>
+        <div className={ classes.container }>
             
             <form className={ classes.form } onSubmit={ (e)=> onSubmit(e) }>
 
@@ -36,7 +47,8 @@ export default function Signup() {
                 <div className={ classes.formRow}>
 
                     <div className={ classes.formGroup }>
-                        <label for="firstName">Enter first name:</label>
+                        <label htmlFor="firstName">Enter first name:</label>
+                        <span>{errors.firstName}</span>
                         <input
                             className={ classes.formInput }
                             type="text"
@@ -47,7 +59,8 @@ export default function Signup() {
                     </div>
 
                     <div className={ classes.formGroup }>
-                        <label for="lastName">Enter last name:</label>
+                        <label htmlFor="lastName">Enter last name:</label>
+                        <span>{errors.lastName}</span>
                         <input
                             className={ classes.formInput }
                             name="lastName"
@@ -62,7 +75,8 @@ export default function Signup() {
                 <div className={ classes.formRow}>
 
                     <div className={ classes.formGroup }>
-                        <label for="username">Enter a unique username:</label>
+                        <label htmlFor="username">Enter an unique username:</label>
+                        <span>{errors.username}</span>
                         <input
                             className={ classes.formInput }
                             name="username"
@@ -73,7 +87,8 @@ export default function Signup() {
                     </div>
 
                     <div className={ classes.formGroup }>
-                        <label for="email">Enter a unique email:</label>
+                        <label htmlFor="email">Enter an unique email:</label>
+                        <span>{errors.email}{errors.emailExists}</span>
                         <input
                             className={ classes.formInput }
                             name="email"
@@ -85,10 +100,9 @@ export default function Signup() {
 
                 </div>
 
-                
-
                 <div className={ classes.formGroup }>
-                    <label for="password">Enter a unique password:</label>
+                    <label htmlFor="password">Enter a unique password:</label>
+                    <span>{errors.password}</span>
                     <input
                         className={ classes.formInput }
                         name="password"
@@ -99,14 +113,16 @@ export default function Signup() {
                 </div>
 
                 <div className={ classes.formGroup }>
-                    <label for="confirm">Confirm password:</label>
+                    <label htmlFor="password2">Confirm password:</label>
+                    <span>{errors.password2}</span>
+
                     <input
                         className={ classes.formInput }
-                        name='confirm'
+                        name='password2'
                         type="password" 
-                        placeholder="confirm password"
-                        value={ confirm }
-                        onChange={ (e) => setConfirm( e.target.value )}
+                        placeholder="password2 password"
+                        value={ password2 }
+                        onChange={ (e) => setPassword2( e.target.value )}
                         />
                 </div>
 
@@ -117,8 +133,9 @@ export default function Signup() {
                     />
                 </div>
                 
-                
             </form>
         </div>
     )
 }
+
+export default withRouter(Signup);
