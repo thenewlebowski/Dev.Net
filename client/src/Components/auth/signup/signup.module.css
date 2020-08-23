@@ -1,0 +1,43 @@
+.container{
+    height:100%;
+    display: flex;
+    align-items: center;
+}
+
+.form{
+    
+    margin:auto;
+    width:50%;
+    text-align: center;
+}
+
+.formRow{
+    display: flex;
+    justify-content: space-between;
+}
+
+.formRow .formInput{
+    width: 100%;
+}
+
+.formRow .formGroup{
+    width: 45%;
+}
+
+.formGroup{
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.formInput{
+    padding: 0;
+    display: block;
+    width: 100%;
+    height: 25px;
+}
+
+.formBtn{
+    width: 100%;
+    height: 25px;
+}
+
