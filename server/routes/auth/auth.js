@@ -1,7 +1,6 @@
 const   router = require('express').Router(),
         jwt = require('jsonwebtoken'),   
-        bcrypt = require('bcrypt'),
-        mongoose = require('mongoose');
+        bcrypt = require('bcrypt');
 
         
 //Load input validation

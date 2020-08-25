@@ -11,12 +11,15 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 
-//Partial components
+//========PARTIAL COMPONENTS=======
 import Navbar from './Components/partials/navbar/navbar';
 
-//Auth Routes
+//========AUTH COMPONENTS=======
 import Signup from './Components/auth/signup';
 import Login from './Components/auth/login';
+
+//=======USER COMPONENTS=======
+import Profile from './Components/profile/profile';
 
 //Check for token to keep user logged in
 if(localStorage.jwtToken){
@@ -48,6 +51,7 @@ function App() {
             {/* Auth Routes */}
             <Route path="/signup" component={ Signup }/>
             <Route path="/login" component={ Login }/>
+            <Route path="/profile" component={ Profile } />
           </Switch>
         </Router>
       </div>
