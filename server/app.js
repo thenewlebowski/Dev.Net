@@ -7,16 +7,19 @@ const cors = require('cors'),
 
 
 
-var createError = require('http-errors');
-var logger = require('morgan');
+let createError = require('http-errors');
+let logger = require('morgan');
 
 
 //Require Routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth/auth');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let imageRouter = require('./routes/uploads');
+let authRouter = require('./routes/auth/auth');
+let profileRouter = require('./routes/profile');
 
-var app = express();
+
+let app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,6 +30,7 @@ require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname + "/public"));
 
 //Connect to DB
 mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser: true, useUnifiedTopology: true})
@@ -43,6 +47,8 @@ require('./config/passport')(passport);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/image', imageRouter);
+app.use('/api/profile', profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

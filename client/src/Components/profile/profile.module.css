@@ -1,0 +1,45 @@
+
+
+.profileHeader{
+    margin-top: 15px; 
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+}
+
+.profileDesc{
+    margin-left: 15px;
+    width: 75%;
+}
+
+.username{
+    border-bottom: 2px solid #eee;
+}
+
+.imgContainer{
+    width: 25%;
+}
+
+.img{
+    width: 100%;
+}
+
+/* Post Styling */
+
+.post{
+    display:flex;
+    justify-content: space-between;
+}
+
+.contributerContainer{
+    display: flex;
+    align-items: center;
+}
+
+.contributer{
+    background-color: black;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 0 15px;
+}

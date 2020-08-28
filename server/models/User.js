@@ -27,6 +27,12 @@ const userSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    profile: {
+        id: {
+            type: Schema.Types.ObjectId,
+            ref: 'profile',
+        }
     }
 })
 

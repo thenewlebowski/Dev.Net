@@ -7,8 +7,9 @@ const   router = require('express').Router(),
 const   validateRegisterInput = require('../../validation/auth/register'),
         validateLoginInput = require('../../validation/auth/login');
 
-//Load User Model
-const User = require('../../models/User')
+//Load Models
+const   User    = require('../../models/User'),
+        Profile = require('../../models/Profile');
 
 //@route POST api/users/register
 //@desc Register user
@@ -34,6 +35,17 @@ router.route('/register').post((req, res) =>{
                 email: req.body.email,
                 password: req.body.password,
             });
+            
+        //Create profile while creating user
+            newProfile = new Profile({
+                user: {
+                    id: newUser.id,
+                    username: newUser.username
+                }
+            })
+            newProfile.save();
+            newUser.profile.id = newProfile.id;
+            
         //Hash password before saving it to database
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash)=>{

@@ -49,9 +49,9 @@ function App() {
           <Navbar />
           <Switch>
             {/* Auth Routes */}
-            <Route path="/signup" component={ Signup }/>
-            <Route path="/login" component={ Login }/>
-            <Route path="/profile" component={ Profile } />
+            <Route path="/signup" exact component={ Signup }/>
+            <Route path="/login" exact component={ Login }/>
+            <Route path="/profile/:id" exact component={ Profile } />
           </Switch>
         </Router>
       </div>

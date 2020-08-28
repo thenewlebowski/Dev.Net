@@ -11,3 +11,9 @@ body, html {
 .app{
   min-height:100%;
 }
+
+.container{
+  width: 75%;
+  margin: auto;
+  height: 100%;
+}

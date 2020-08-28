@@ -10,13 +10,17 @@ export default function Navbar() {
 
     return (
         <nav className={classes.navbar}>
-            <div className={classes.navHeader}>
-                <Link to="/" >Dev.Net</Link>
-            </div>
-            <div className={classes.navItems}>
-                {auth.isAuthenticated ? <Link to="#" onClick={()=>dispatch(logoutUser())}>Logout</Link> : null}
-                {!auth.isAuthenticated ? <Link to="/login" >Login</Link> : null}
-                {!auth.isAuthenticated ? <Link to="/signup" >Sign Up</Link> : null}
+            <div className="container">
+                <div className={classes.navbarContainer}>
+                    <div className={classes.navHeader}>
+                        <Link to="/" >Dev.Net</Link>
+                    </div>
+                    <div className={classes.navItems}>
+                        {auth.isAuthenticated ? <Link to="#" onClick={()=>dispatch(logoutUser())}>Logout</Link> : null}
+                        {!auth.isAuthenticated ? <Link to="/login" >Login</Link> : null}
+                        {!auth.isAuthenticated ? <Link to="/signup" >Sign Up</Link> : null}
+                    </div>
+                </div>
             </div>
         </nav>
     )
