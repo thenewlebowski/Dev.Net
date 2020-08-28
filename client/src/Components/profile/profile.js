@@ -9,7 +9,7 @@ export default class Profile extends Component {
     state = {
         username: '',
         bio: '',
-        lang: '',
+        langs: [],
         posts: [0,1,2,3,4]
     }
 
@@ -18,9 +18,9 @@ export default class Profile extends Component {
         axios.get('/profile/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
-                    username : res.data.username,
+                    username : res.data.user.username,
                     bio: res.data.bio,
-                    lang: res.data.lang,
+                    langs: res.data.lang ? res.data.lang : ['none'],
                 })
             })
     }
@@ -45,6 +45,12 @@ export default class Profile extends Component {
         ))
     }
 
+    languages(){
+        return this.state.langs.map(lang => (
+            <li>{lang}</li>
+        ))
+    }
+
 
 
     render(){
@@ -62,17 +68,15 @@ export default class Profile extends Component {
                         {/* Username */}
                         <h1 className={classes.username}>{this.state.username}</h1>
                     
-                        <div style={{display: 'flex'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <div>
                                 <h5>Bio</h5>
-                                <p style={{paddingRight: '15px'}}>Cillum irure veniam elit reprehenderit amet veniam laboris sint id aliqua reprehenderit pariatur. Excepteur eu eu Lorem mollit. Laboris laborum incididunt dolor enim sunt officia occaecat qui dolore quis qui adipisicing. Sit incididunt elit pariatur in pariatur non fugiat cillum sit ullamco aute dolor commodo consectetur. Esse laboris aute aute ad eu. Ut ex consectetur ad et aliqua pariatur laboris proident esse. Elit non labore occaecat tempor cupidatat cupidatat aute Lorem voluptate reprehenderit magna commodo do.</p>
+                                <p style={{paddingRight: '15px'}}>{this.state.bio}</p>
                             </div>
                             <div>
                                 <h5>Fluent languages:</h5>
                                 <ul>
-                                    <li>C#</li>
-                                    <li>Javascript</li>
-                                    <li>Java</li>
+                                    {this.languages()}
                                 </ul>
                             </div>
                         </div>
