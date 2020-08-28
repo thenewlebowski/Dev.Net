@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classes from './profile.module.css';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 //Profile Picture
@@ -14,7 +15,6 @@ export default class Profile extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props.match.params);
         axios.get('/profile/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
@@ -57,17 +57,12 @@ export default class Profile extends Component {
         return (
             <div className='container'>
                 {/* Layout Profile design */}
-                {/* Profile Picture */}
                 <div className={classes.profileHeader}>
                     <div className={ classes.imgContainer }>
                         <img src={profilePicture}  className={classes.img} alt="Profile Picture"/>
                     </div>
-    
-                    {/* Description for user */}
                     <div className={classes.profileDesc}>
-                        {/* Username */}
                         <h1 className={classes.username}>{this.state.username}</h1>
-                    
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <div>
                                 <h5>Bio</h5>
@@ -78,6 +73,9 @@ export default class Profile extends Component {
                                 <ul>
                                     {this.languages()}
                                 </ul>
+                            </div>
+                            <div>
+                                <Link to={this.props.match.params.id + '/edit'}>Edit</Link>
                             </div>
                         </div>
                     </div>

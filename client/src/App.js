@@ -20,6 +20,7 @@ import Login from './Components/auth/login';
 
 //=======USER COMPONENTS=======
 import Profile from './Components/profile/profile';
+import EditProfile from './Components/profile/edit';
 
 //Check for token to keep user logged in
 if(localStorage.jwtToken){
@@ -52,6 +53,7 @@ function App() {
             <Route path="/signup" exact component={ Signup }/>
             <Route path="/login" exact component={ Login }/>
             <Route path="/profile/:id" exact component={ Profile } />
+            <Route path="/profile/:id/edit" exact component={ EditProfile } />
           </Switch>
         </Router>
       </div>
