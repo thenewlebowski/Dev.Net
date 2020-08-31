@@ -1,0 +1,17 @@
+.background{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(80,80,80, .5);
+    z-index: 999;
+}
+
+.imgModContainer{
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    z-index: 1000;
+}
