@@ -1,0 +1,27 @@
+.profileHeader{
+    margin-top: 15px; 
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+}
+
+.profileDesc{
+    margin-left: 15px;
+    width: 75%;
+}
+
+.descHeader{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #eee;
+}
+
+.infoContainer{
+    display: flex; 
+    justify-content: space-between;
+}
+
+.username{
+    
+}
+
