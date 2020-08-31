@@ -8,9 +8,12 @@ export default function ProfileDesc(props) {
                 <h1 className={classes.username}>
                         {props.username}
                 </h1>
-                <button onClick={props.editToggle}>
-                    {props.editMode ? "Cancel" : "Edit"}
-                </button>
+                <div className={ classes.btnContainer }>
+                    <button onClick={props.editToggle} className={'btn btnWarning'}>
+                        {props.editMode ? "Cancel" : "Edit"}
+                    </button>
+                </div>
+                
             </div>
             
             <div className={ classes.infoContainer }>

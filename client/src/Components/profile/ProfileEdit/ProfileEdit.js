@@ -2,13 +2,15 @@ import React, {useEffect} from 'react';
 import classes from './ProfileEdit.module.css';
 
 export default function ProfileEdit(props) {
-    useEffect(()=>{
-        console.log(props)
-    },[]);
 
     let onSubmit = (e) =>{
-        e.stopProigation();
+        e.preventDefault();
+        e.stopPropagation();
+
+        console.log(e);
     }
+
+    let btnClasses = [classes.btn]
     return (
         <form className={classes.profileDesc} onSubmit={(e) => onSubmit(e)}>
             <div className={ classes.descHeader }>
@@ -18,9 +20,12 @@ export default function ProfileEdit(props) {
                 value={ props.editData.username }
                 name='username'
                 type='text'/>
-                <button onClick={props.editToggle}>
-                    {props.editMode ? "Cancel" : "Edit"}
-                </button>
+                <div className="btnContainer">
+                    <input className={'btn btnSuccess'} type='submit' value='Submit'/> 
+                    <button className={'btn btnDanger'} onClick={props.editToggle}>
+                        {props.editMode ? "Cancel" : "Edit"}
+                    </button>
+                </div>
             </div>
             
 
@@ -40,7 +45,6 @@ export default function ProfileEdit(props) {
                     <ul>
                         {props.languages(props.editData.langs)}
                     </ul>
-                    <input type='submit' value='Submit'/>
                 </div>
             </div>
 

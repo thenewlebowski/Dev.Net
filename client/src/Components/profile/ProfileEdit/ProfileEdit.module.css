@@ -10,6 +10,13 @@
     width: 75%;
 }
 
+.descHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+}
+
 .infoContainer{
     display: flex; 
     justify-content: space-between;
@@ -17,4 +24,24 @@
 
 .username{
     border-bottom: 2px solid #eee;
+}
+
+.btnDanger{
+    background-color: rgb(255,0,0);
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: white;
+
+
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-color: #ccc;
+    border-radius: 4px;
 }
