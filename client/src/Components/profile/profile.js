@@ -3,6 +3,10 @@ import classes from './profile.module.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+//========COMPONENTS======//
+import ProfileDesc from './ProfileDesc/ProfileDesc';
+import ProfileEdit from './ProfileEdit/ProfileEdit';
+
 //Profile Picture
 import profilePicture from '../../images/profilePicture.jpg';
     
@@ -15,9 +19,9 @@ export default class Profile extends Component {
         posts: [],
         editMode: false,
         editData: {
-            username: this.state.username,
-            bio: this.state.username,
-            langs: this.state.username,
+            username: '',
+            bio: '',
+            langs: [],
             //posts: this.state.username
         }
     }
@@ -29,12 +33,19 @@ export default class Profile extends Component {
                     username : res.data.user.username,
                     bio: res.data.bio,
                     langs: res.data.lang ? res.data.lang : ['none'],
+                    editData: {
+                        username: res.data.user.username,
+                        bio: res.data.bio,
+                        langs: res.data.lang ? res.data.lang : ['none'],
+                        //posts: this.state.username
+                    }
                 })
             })
             .catch(err => console.log(err));
     }
 
-    handleChange(e){
+    handleChange = (e) =>{
+        console.log(e.target.name);
         this.setState({
             editData:{
                 ...this.state.editData,
@@ -42,6 +53,7 @@ export default class Profile extends Component {
             }
         })
     }
+
     componentWillUnmount(){
         //reduce chance of memory leak here by unsubscribing to unnessacery data
     }
@@ -72,13 +84,16 @@ export default class Profile extends Component {
         ))
     }
 
-    languages(){
-        return this.state.langs.map(lang => (
+    //editMode toggle
+    handleEditModeToggle = () =>{
+        return this.setState({editMode: !this.state.editMode})
+    }
+
+    languages(langs){
+        return langs.map(lang => (
             <li>{lang}</li>
         ))
     }
-
-
 
     render(){
         return (
@@ -90,33 +105,24 @@ export default class Profile extends Component {
                         { this.state.editMode ? <button>Upload</button> : null }
                         { this.state.editMode ? <button>Resize</button> : null }
                     </div>
-                    <div className={classes.profileDesc}>
-                        { this.state.editMode ? 
-                        <input type="text" 
-                        value={this.state.username}/> : 
-                        <h1 className={classes.username}>{this.state.username}</h1> }
 
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <div>
-                                <h5>Bio</h5>
-                                { this.state.editMode ? 
-                                <textarea 
-                                value={this.state.bio} 
-                                onChange={(e)=>this.handleChange(e)}/> : 
-                                <p>{this.state.bio} </p> }
-                            </div>
-                            
-                            <div>
-                                <h5>Fluent languages:</h5>
-                                <ul>
-                                    {this.languages()}
-                                </ul>
-                            </div>
-                            <div>
-                                <button onClick={()=>this.setState({editMode: !this.state.editMode})}>Edit</button>
-                            </div>
-                        </div>
-                    </div>
+                    {this.state.editMode ? 
+                    <ProfileEdit
+                    editToggle={ this.handleEditModeToggle }
+                    editMode={ this.state.editMode }
+                    handleChange={ this.handleChange }
+                    editData={ this.state.editData }
+                    languages={ this.languages }
+                    /> : 
+                    <ProfileDesc
+                    editToggle={ this.handleEditModeToggle}
+                    username={ this.state.username }
+                    editMode={ this.state.editMode }
+                    languages={this.languages}
+                    langs={ this.state.langs }
+                    bio={ this.state.bio }
+                    />}
+
                 </div>
                 
                 {/* Recent Converstations / Questions */}
