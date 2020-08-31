@@ -8,14 +8,22 @@ import profilePicture from '../../images/profilePicture.jpg';
     
 export default class Profile extends Component {
     state = {
+        profilePic: profilePicture,
         username: '',
         bio: '',
         langs: [],
-        posts: []
+        posts: [],
+        editMode: false,
+        editData: {
+            username: this.state.username,
+            bio: this.state.username,
+            langs: this.state.username,
+            //posts: this.state.username
+        }
     }
 
     componentDidMount(){
-        axios.get('/profile/' + this.props.match.params.id)
+        axios.get(process.env.REACT_APP_PROXY + '/profile/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
                     username : res.data.user.username,
@@ -23,8 +31,17 @@ export default class Profile extends Component {
                     langs: res.data.lang ? res.data.lang : ['none'],
                 })
             })
+            .catch(err => console.log(err));
     }
 
+    handleChange(e){
+        this.setState({
+            editData:{
+                ...this.state.editData,
+                [e.target.name] : e.target.value
+            }
+        })
+    }
     componentWillUnmount(){
         //reduce chance of memory leak here by unsubscribing to unnessacery data
     }
@@ -69,15 +86,26 @@ export default class Profile extends Component {
                 {/* Layout Profile design */}
                 <div className={classes.profileHeader}>
                     <div className={ classes.imgContainer }>
-                        <img src={profilePicture}  className={classes.img} alt="Profile Picture"/>
+                        <img src={this.state.profilePic}  className={classes.img} alt="Profile Picture"/>
+                        { this.state.editMode ? <button>Upload</button> : null }
+                        { this.state.editMode ? <button>Resize</button> : null }
                     </div>
                     <div className={classes.profileDesc}>
-                        <h1 className={classes.username}>{this.state.username}</h1>
+                        { this.state.editMode ? 
+                        <input type="text" 
+                        value={this.state.username}/> : 
+                        <h1 className={classes.username}>{this.state.username}</h1> }
+
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <div>
                                 <h5>Bio</h5>
-                                <p style={{paddingRight: '15px'}}>{this.state.bio}</p>
+                                { this.state.editMode ? 
+                                <textarea 
+                                value={this.state.bio} 
+                                onChange={(e)=>this.handleChange(e)}/> : 
+                                <p>{this.state.bio} </p> }
                             </div>
+                            
                             <div>
                                 <h5>Fluent languages:</h5>
                                 <ul>
@@ -85,7 +113,7 @@ export default class Profile extends Component {
                                 </ul>
                             </div>
                             <div>
-                                <Link to={this.props.match.params.id + '/edit'}>Edit</Link>
+                                <button onClick={()=>this.setState({editMode: !this.state.editMode})}>Edit</button>
                             </div>
                         </div>
                     </div>
