@@ -11,7 +11,7 @@ export default class Profile extends Component {
         username: '',
         bio: '',
         langs: [],
-        posts: [0,1,2,3,4]
+        posts: []
     }
 
     componentDidMount(){
@@ -24,7 +24,17 @@ export default class Profile extends Component {
                 })
             })
     }
+
+    componentWillUnmount(){
+        //reduce chance of memory leak here by unsubscribing to unnessacery data
+    }
+
+    onEditClick = () => {
+        //render edit component
+
+    }
     
+    //Render recent discussions 
     recentPosts(){
         return this.state.posts.map( post => (
             <div>
@@ -84,9 +94,10 @@ export default class Profile extends Component {
                 {/* Recent Converstations / Questions */}
                 <h1>Recent Discussions:</h1>
                 {/* This will be a forEach loop going over every post user has made */}
-                <div>
-                    {this.recentPosts()}
-
+                <div className={classes.recentPosts}>
+                    {this.state.posts > 1 ? 
+                    this.recentPosts() : 
+                    <h1>No recent contribution yet</h1>}
                 </div>
                 {/* Link user and profile via user_id*/}
             </div>

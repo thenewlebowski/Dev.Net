@@ -1,0 +1,23 @@
+.imgContainer{
+    width: 25%;
+}
+
+.profileHeader{
+    display: flex;
+    justify-content: space-between;
+}
+
+.formGroup{
+    margin: 10px 0;
+}
+
+.input{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.textareaInput{
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px;
+}
