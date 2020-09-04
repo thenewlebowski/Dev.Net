@@ -1,23 +1,28 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 //========Styling=======//
 import classes from './ImgModOverlay.module.css';
 
 export default function ImgModOverlay(props) {
-    const [visible, setVisiblity] = useState(false); //must be boolean value
-    
-    useEffect(()=>{
-        console.log('[ImgModOverlay] props.visible changed')
-        setVisiblity(props.visible)
-    }, [props.visible])
-
+    const [img, setImg] = useState('');
     function handleClickAway(){
-        props.imgModVisibility(!props.visible);
+        props.handleImgModToggle(!props.visible);
     }
 
-    return visible ? (
+    function handleClickIn(e){
+        e.stopPropagation();
+    }
+
+    function handleSubmit(){
+        setImg('');
+    }
+
+    return props.visible ? (
         <div className={classes.background} onClick={handleClickAway}> 
-            <div className={classes.imgModContainer}></div>
+            <div onClick={handleClickIn} className={classes.imgModContainer}>
+                <img src={img}/>
+                <input type='file' onChange={handleSubmit}/>
+            </div>
         </div>
     ) : null
 }

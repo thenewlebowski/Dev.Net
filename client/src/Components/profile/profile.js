@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import classes from './profile.module.css';
-import { Link } from 'react-router-dom';
+import classes from './Profile.module.css';
 import axios from 'axios';
 
 //========COMPONENTS======//
 import ProfileDesc from './ProfileDesc/ProfileDesc';
 import ProfileEdit from './ProfileEdit/ProfileEdit';
+import ImgModOverlay from '../image/ImgModOverlay';
+import Auxiliary from '../../hoc/Auxiliary';
+
 
 //Profile Picture
 import profilePicture from '../../images/profilePicture.jpg';
@@ -18,6 +20,7 @@ export default class Profile extends Component {
         langs: [],
         posts: [],
         editMode: false,
+        imgModVisible: false,
         editData: {
             username: '',
             bio: '',
@@ -42,6 +45,10 @@ export default class Profile extends Component {
                 })
             })
             .catch(err => console.log(err));
+    }
+
+    handleImgModToggle = () =>{
+       return this.setState({ imgModVisible: !this.state.imgModVisible });
     }
 
     handleChange = (e) =>{
@@ -97,44 +104,54 @@ export default class Profile extends Component {
 
     render(){
         return (
-            <div className='container'>
-                {/* Layout Profile design */}
-                <div className={classes.profileHeader}>
-                    <div className={ classes.imgContainer }>
-                        <img src={this.state.profilePic}  className={classes.img} alt="Profile Picture"/>
-                        { this.state.editMode ? <button>Upload</button> : null }
-                        { this.state.editMode ? <button>Resize</button> : null }
+            <Auxiliary>
+                <ImgModOverlay
+                handleImgModToggle={this.handleImgModToggle}
+                visible={this.state.imgModVisible}/>
+
+                <div className='container'>
+                    {/* Layout Profile design */}
+                    <div className={classes.profileHeader}>
+                        <div className={ classes.imgContainer }>
+                            <img src={this.state.profilePic}  className={classes.img} alt="Profile Picture"/>
+                            { this.state.editMode ? <button 
+                                                    className={'btn btnPrimary'}
+                                                    onClick={ this.handleImgModToggle }>Upload</button> : null }
+                            { this.state.editMode ? <button 
+                                                    className={'btn btnWarning'}
+                                                    onClick={this.handleImgModToggle }>Resize</button> : null }
+                        </div>
+
+                        {this.state.editMode ? 
+                        <ProfileEdit
+                        editToggle={ this.handleEditModeToggle }
+                        editMode={ this.state.editMode }
+                        handleChange={ this.handleChange }
+                        editData={ this.state.editData }
+                        languages={ this.languages }
+                        /> : 
+                        <ProfileDesc
+                        editToggle={ this.handleEditModeToggle}
+                        username={ this.state.username }
+                        editMode={ this.state.editMode }
+                        languages={this.languages}
+                        langs={ this.state.langs }
+                        bio={ this.state.bio }
+                        />}
+
                     </div>
-
-                    {this.state.editMode ? 
-                    <ProfileEdit
-                    editToggle={ this.handleEditModeToggle }
-                    editMode={ this.state.editMode }
-                    handleChange={ this.handleChange }
-                    editData={ this.state.editData }
-                    languages={ this.languages }
-                    /> : 
-                    <ProfileDesc
-                    editToggle={ this.handleEditModeToggle}
-                    username={ this.state.username }
-                    editMode={ this.state.editMode }
-                    languages={this.languages}
-                    langs={ this.state.langs }
-                    bio={ this.state.bio }
-                    />}
-
+                    
+                    {/* Recent Converstations / Questions */}
+                    <h1>Recent Discussions:</h1>
+                    {/* This will be a forEach loop going over every post user has made */}
+                    <div className={classes.recentPosts}>
+                        {this.state.posts > 1 ? 
+                        this.recentPosts() : 
+                        <h1>No recent contribution yet</h1>}
+                    </div>
+                    {/* Link user and profile via user_id*/}
                 </div>
-                
-                {/* Recent Converstations / Questions */}
-                <h1>Recent Discussions:</h1>
-                {/* This will be a forEach loop going over every post user has made */}
-                <div className={classes.recentPosts}>
-                    {this.state.posts > 1 ? 
-                    this.recentPosts() : 
-                    <h1>No recent contribution yet</h1>}
-                </div>
-                {/* Link user and profile via user_id*/}
-            </div>
+            </Auxiliary>
         )
         
     }
