@@ -11,7 +11,7 @@ const   validateRegisterInput = require('../../validation/auth/register'),
 const   User    = require('../../models/User'),
         Profile = require('../../models/Profile');
 
-//@route POST api/users/register
+//@route POST api/auth/register
 //@desc Register user
 //@access Public
 
@@ -21,8 +21,6 @@ router.route('/register').post((req, res) =>{
     if(!isValid) {
         return res.status(400).json(errors);
     }
-
-   
 
     User.findOne({ email: req.body.email }).then(user => {
         if(user){
@@ -61,7 +59,7 @@ router.route('/register').post((req, res) =>{
     })
 })
 
-//@route POST api/users/login
+//@route POST api/auth/login
 //@desc Login and return JWT token
 //@access Public
 
@@ -80,7 +78,7 @@ router.route('/login').post((req, res) => {
     User.findOne({ email }).then(user => {
     // Check if user exist
         if(!user){
-            return res.status(404).json({ emailnotfound: 'Email not found'})
+            return res.status(404).json({ emailNotFound: 'Email not found'})
         }
     //Check password
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -109,7 +107,7 @@ router.route('/login').post((req, res) => {
             } else {
                 return res
                     .status(400)
-                    .json({ passwordincorrect: 'Password incorrect' });
+                    .json({ passwordIncorrect: 'Password incorrect' });
             }
         });
     });
