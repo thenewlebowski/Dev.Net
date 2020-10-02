@@ -34,9 +34,8 @@ const upload = multer({
     using multer and creates a reference to the 
     file
 */
-ImageRouter.route("/uploadmulter")
+ImageRouter.route("/upload")
     .post(upload.single('imageData'), (req, res, next) => {
-        console.log(req.body);
         const newImage = new Image({
             imageName: req.body.imageName,
             imageData: req.file.path
