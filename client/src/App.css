@@ -67,11 +67,17 @@ body, html {
 .btnDanger{
   color: #fff;
   border-color: #ccc;
-  background-color: rgb(255,0,0);
+  background-color: #dc3545;
 }
 
 .btnSuccess{
   color: #fff;
   border-color: #ccc;
-  background-color: rgb(0,128,0);
+  background-color: #28a745;
+}
+
+.btnPrimary{
+  color: #fff;
+  background-color: #007bff;
+  border-color: #ccc;
 }
