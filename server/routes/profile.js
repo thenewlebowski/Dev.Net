@@ -18,7 +18,7 @@ router.route('/:username').get((req, res) => {
             return res.status(400).json({err : error});
         }
         console.log(user.profile);
-        Profile.find({_id : user.profile.id }, (err, profile)=>{
+        Profile.findOne({_id : user.profile.id }, (err, profile)=>{
             if(err)
             {
                 console.log(err);
@@ -26,15 +26,6 @@ router.route('/:username').get((req, res) => {
             }
             res.json(profile);
         })
-        // Profile.find({ _id : user.profile._id}, (err, profile)=>{
-        //     if(err){
-        //         console.log(err);
-        //         return res.status(400).json(err);
-        //     }
-
-        //     console.log(profile);
-        //     res.json(profile);
-        // })
     });
 })
 
