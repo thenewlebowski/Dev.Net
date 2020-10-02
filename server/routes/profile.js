@@ -2,17 +2,39 @@ const   router      = require('express').Router();
 
 // Load Models
 const   Profile     = require('../models/Profile');
+const   User        = require('../models/User');
 
 /**@route /api/profile/{id}
  * @desc Api to retreive the profile from request parameters
  * @author Colton Nielsen
  */
-router.route('/:id').get((req, res) => {
-    Profile.findById(req.params.id, (err, profile)=>{
-        if(err){
-            return res.status(400).json(err);
+router.route('/:username').get((req, res) => {
+    process.env.ENV !== "Production" ? console.log('[Profile Route] ' + req.params.username) : null;
+
+    User.findOne({ username : req.params.username }, (err, user)=>{
+        if(err)
+        {
+            console.log(err);
+            return res.status(400).json({err : error});
         }
-        res.json(profile);
+        console.log(user.profile);
+        Profile.find({_id : user.profile.id }, (err, profile)=>{
+            if(err)
+            {
+                console.log(err);
+                return res.status(400).json({err : error});
+            }
+            res.json(profile);
+        })
+        // Profile.find({ _id : user.profile._id}, (err, profile)=>{
+        //     if(err){
+        //         console.log(err);
+        //         return res.status(400).json(err);
+        //     }
+
+        //     console.log(profile);
+        //     res.json(profile);
+        // })
     });
 })
 
