@@ -24,7 +24,7 @@ export default function ProfileDesc(props) {
                 <div className={ classes.langsContainer }>
                     <h5>Fluent languages:</h5>
                     <ul>
-                        {props.languages(props.langs)}
+                        {props.langs.length > 0 ? props.languages(props.langs) : <em>No languages yet</em>}
                     </ul>
                 </div>
             </div>
