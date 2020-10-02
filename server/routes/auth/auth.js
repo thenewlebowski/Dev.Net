@@ -11,9 +11,11 @@ const   validateRegisterInput = require('../../validation/auth/register'),
 const   User    = require('../../models/User'),
         Profile = require('../../models/Profile');
 
-//@route POST api/auth/register
-//@desc Register user
-//@access Public
+/**
+ * @route POST api/auth/register
+ * @desc Register user
+ * @access Public
+ */
 
 router.route('/register').post((req, res) =>{
     const { errors, isValid } = validateRegisterInput(req.body);
