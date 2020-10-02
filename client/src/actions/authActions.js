@@ -8,9 +8,9 @@ import {
     SET_CURRENT_USER
 } from './types';
 
+//register user action
 export const registerUser = (userData, history) => dispatch => {
-    console.log('register user')
-    axios.post('/auth/register', userData)
+    axios.post(process.env.REACT_APP_PROXY + '/auth/register', userData)
         .then(res => history.push('/login'))
         .catch(err => dispatch({
                 type:GET_ERRORS,
@@ -19,9 +19,9 @@ export const registerUser = (userData, history) => dispatch => {
         )
     )
 }
-
+//login user action
 export const loginUser = (userData, history) => dispatch =>{
-    axios.post('/auth/login', userData )
+    axios.post(process.env.REACT_APP_PROXY + '/auth/login', userData )
         .then(res => {
             //set token to local storage
             const { token } = res.data;
