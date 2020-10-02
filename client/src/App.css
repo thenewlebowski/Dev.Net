@@ -81,3 +81,8 @@ body, html {
   background-color: #007bff;
   border-color: #ccc;
 }
+
+.btnSmall{
+    font-size: 5px !important;
+    padding: 2px 6px !important;
+}
