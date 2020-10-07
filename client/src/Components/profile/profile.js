@@ -20,13 +20,7 @@ export default class Profile extends Component {
         langs: [],
         posts: [],
         editMode: false,
-        imgModVisible: false,
-        editData: {
-            username: '',
-            bio: '',
-            langs: [],
-            //posts: this.state.username
-        }
+        imgModVisible: false
     }
 
     componentDidMount(){
@@ -35,13 +29,7 @@ export default class Profile extends Component {
                 this.setState({
                     username : res.data.user.username,
                     bio: res.data.bio,
-                    langs: res.data.lang ? res.data.lang : ['none'],
-                    editData: {
-                        username: res.data.user.username,
-                        bio: res.data.bio,
-                        langs: res.data.lang ? res.data.lang : ['none'],
-                        //posts: this.state.username
-                    }
+                    langs: res.data.lang ? res.data.lang : [],
                 })
             })
             .catch(err => console.log(err));
@@ -123,21 +111,20 @@ export default class Profile extends Component {
                         </div>
 
                         {this.state.editMode ? 
-                        <ProfileEdit
-                        editToggle={ this.handleEditModeToggle }
-                        editMode={ this.state.editMode }
-                        handleChange={ this.handleChange }
-                        editData={ this.state.editData }
-                        languages={ this.languages }
-                        /> : 
-                        <ProfileDesc
-                        editToggle={ this.handleEditModeToggle}
-                        username={ this.state.username }
-                        editMode={ this.state.editMode }
-                        languages={this.languages}
-                        langs={ this.state.langs }
-                        bio={ this.state.bio }
-                        />}
+                            <ProfileEdit
+                                editToggle={ this.handleEditModeToggle }
+                                languages={ this.languages }
+                                data={this.state}
+                            />
+                            : 
+                            <ProfileDesc
+                            editToggle={ this.handleEditModeToggle}
+                            username={ this.state.username }
+                            editMode={ this.state.editMode }
+                            languages={this.languages}
+                            langs={ this.state.langs }
+                            bio={ this.state.bio }
+                            />}
 
                     </div>
                     

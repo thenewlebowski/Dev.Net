@@ -13,7 +13,7 @@ export default function ProfileEdit(props) {
 
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
-    const [langs, setLangs] = useState(['C++']); //testing purposes
+    const [langs, setLangs] = useState([]); //testing purposes
     const [tempLang, setTempLang] = useState('');
     const [errs, setErrs] = useState({});
     // const [picUrl, setPicUrl] = useState(profilePicture);
@@ -28,10 +28,9 @@ export default function ProfileEdit(props) {
 
     useEffect(()=> {
         console.log(props.data);
-        //setUsername(props.username);
         setUsername(props.data.username);
         setBio(props.data.bio);
-        //setLangs(props.data.langs);
+        setLangs(props.data.langs);
     },[]);
 
     //=====FUNCTIONS=======//
@@ -43,6 +42,7 @@ export default function ProfileEdit(props) {
                 {langs.length > 0 ? langs.map((lang, i)=>(
                     <div key={i}>
                         <button
+                        type='button'
                         className={'btn btnSmall btnDanger fas fa-minus'}
                         onClick={(e) => handleLangsRemove(e)}
                         value={lang}
@@ -50,16 +50,7 @@ export default function ProfileEdit(props) {
                         {lang}
                     </div>
                 )) : null}
-                <div>
-                    <button
-                    className={'btn btnSmall btnSuccess fas fa-plus'}
-                    onClick={handleLangsAdd}
-                    value = {tempLang}
-                    /> 
-                    <input type="text" onChange={ e => setTempLang(e.target.value)}/>
-                </div>
             </div>
-            <span>{errs.langs}</span>
         </Auxiliary>
         )
     }
@@ -89,7 +80,7 @@ export default function ProfileEdit(props) {
     
     let handleLangsAdd = (e) =>
     {
-        
+         
         e.stopPropagation();
 
         setErrs({
@@ -105,7 +96,7 @@ export default function ProfileEdit(props) {
             })
         } 
         //if no error then set new langs
-        let newLangs = langs
+        let newLangs = langs;
         newLangs.push(e.target.value);
         return console.log(newLangs);
         setLangs(newLangs);
@@ -118,15 +109,22 @@ export default function ProfileEdit(props) {
         <form className={classes.profileDesc} encType='' onSubmit={(e) => onSubmit(e)}>
 
             <div className={ classes.descHeader }>
-                <input
-                onChange={ (e) => setUsername(e.target.value) }
-                className={ classes.username }
-                value={ username }
-                name='username'
-                type='text'/>
+
+                <div className={classes.usernameContainer } >
+                    <h5>Username</h5>
+                    <input
+                    onChange={ (e) => setUsername(e.target.value) }
+                    className={ classes.username }
+                    value={ username }
+                    name='username'
+                    type='text'/>
+                </div>
+                
                 <div className="btnContainer">
-                    <input className={'btn btnSuccess'} type='submit' value='Submit'/> 
-                    <button className={'btn btnDanger'} onClick={props.editToggle}>
+                    <button 
+                    type='button'
+                    className={'btn btnDanger'} 
+                    onClick={props.editToggle}>
                         {props.data.editMode ? "Cancel" : "Edit"}
                     </button>
                 </div>
@@ -139,17 +137,30 @@ export default function ProfileEdit(props) {
                     <h5>Bio</h5>
                     <textarea
                     onChange={ (e) => setBio(e.target.value) }
-                    className={classes.bioTextArea}
+                    className={classes.bioTextarea}
                     value={bio}
                     name='bio'/>
                 </div>
 
                 <div className={ classes.langsContainer }>
                     <h5>Fluent languages:</h5>
+                    <span>{errs.langs}</span>
                     {mapLangs()}
+
+                    <div>
+                        <button
+                        type='button'
+                        className={'btn btnSmall btnSuccess fas fa-plus'}
+                        onClick={handleLangsAdd}
+                        value = {tempLang}
+                        /> 
+                        <input type="text" onChange={ e => setTempLang(e.target.value)}/>
+                    </div>
                 </div>
             </div>
-
+            <div className={classes.submitContainer}>
+                <input className={'btn btnSuccess'} type='submit' value='Submit'/> 
+            </div>
         </form>
     )
 }
