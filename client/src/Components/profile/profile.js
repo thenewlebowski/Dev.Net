@@ -49,6 +49,27 @@ export default class Profile extends Component {
         })
     }
 
+    handleUploadImg = (e)=>{
+        let imgFormObj = new FormData();
+
+        imgFormObj.append('imageName', 'multer-image-' + Date.now());
+        imgFormObj.append('imageData', e.target.files[0]);
+        return console.log(imgFormObj);
+        this.setState({
+            profilePic : URL.createObjectURL(e.target.files[0])
+        });
+
+        axios.post(process.env.REACT_APP_PROXY + '/image/uploadbase', imgFormObj)
+            .then((data)=> {
+                if(data.data.success){
+                    alert('Image has been successfully uploaded')
+                }
+            })
+            .catch(err => {
+                alert('There was an error uploading your imaged')
+            })
+    }
+
     componentWillUnmount(){
         //reduce chance of memory leak here by unsubscribing to unnessacery data
     }
@@ -79,6 +100,10 @@ export default class Profile extends Component {
         ))
     }
 
+    handleProfilePic = (profilePic) =>{
+        return this.setState({profilePic : profilePic})
+    }
+
     //editMode toggle
     handleEditModeToggle = () =>{
         return this.setState({editMode: !this.state.editMode})
@@ -95,7 +120,8 @@ export default class Profile extends Component {
             <Auxiliary>
                 <ImgModOverlay
                 handleImgModToggle={this.handleImgModToggle}
-                visible={this.state.imgModVisible}/>
+                visible={this.state.imgModVisible}
+                handleUploadImg={this.handleUploadImg}/>
 
                 <div className='container'>
                     {/* Layout Profile design */}

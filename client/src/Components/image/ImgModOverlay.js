@@ -13,15 +13,12 @@ export default function ImgModOverlay(props) {
         e.stopPropagation();
     }
 
-    function handleSubmit(){
-        setImg('');
-    }
 
     return props.visible ? (
         <div className={classes.background} onClick={handleClickAway}> 
             <div onClick={handleClickIn} className={classes.imgModContainer}>
                 <img src={img}/>
-                <input type='file' onChange={handleSubmit}/>
+                <input type='file' onChange={ (e) => props.handleUploadImg(e) }/>
             </div>
         </div>
     ) : null
