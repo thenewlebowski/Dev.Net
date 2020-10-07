@@ -12,11 +12,11 @@ import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 
 //========PARTIAL COMPONENTS=======
-import Navbar from './Components/partials/navbar/navbar';
+import Navbar from './Components/partials/Navbar/Navbar';
 
 //========AUTH COMPONENTS=======
-import Signup from './Components/auth/signup';
-import Login from './Components/auth/login';
+import Signup from './Components/auth/Signup';
+import Login from './Components/auth/Login';
 
 //=======USER COMPONENTS=======
 import Profile from './Components/profile/Profile';

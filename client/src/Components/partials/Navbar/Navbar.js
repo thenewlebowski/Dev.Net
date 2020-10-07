@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../../actions/authActions';
-import classes from './navbar.module.css';
+import classes from './Navbar.module.css';
 
 export default function Navbar() {
     const auth = useSelector(state => state.auth);

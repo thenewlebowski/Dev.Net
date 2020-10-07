@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import classes from './auth.module.css';
+import classes from './Auth.module.css';
 
 function Signup(props) {
     const [firstName, setFirstName] = useState('');
