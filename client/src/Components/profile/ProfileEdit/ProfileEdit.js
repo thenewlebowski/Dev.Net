@@ -98,9 +98,9 @@ export default function ProfileEdit(props) {
         //if no error then set new langs
         let newLangs = langs;
         newLangs.push(e.target.value);
-        return console.log(newLangs);
-        setLangs(newLangs);
-        console.log(langs);
+        setTempLang('');
+        return setLangs(newLangs);
+        
 
     }
 
@@ -148,13 +148,19 @@ export default function ProfileEdit(props) {
                     {mapLangs()}
 
                     <div>
+                        
                         <button
                         type='button'
                         className={'btn btnSmall btnSuccess fas fa-plus'}
                         onClick={handleLangsAdd}
                         value = {tempLang}
                         /> 
-                        <input type="text" onChange={ e => setTempLang(e.target.value)}/>
+                        
+                        <input 
+                        type="text" 
+                        value={tempLang}
+                        onChange={ e => setTempLang(e.target.value)}/>
+
                     </div>
                 </div>
             </div>
