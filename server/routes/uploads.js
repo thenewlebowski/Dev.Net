@@ -60,6 +60,7 @@ ImageRouter.route("/upload")
 */    
 ImageRouter.route("/uploadbase")
     .post((req, res, next) => {
+        return res.json(req.body);
         const newImage = new Image({
             imageName: req.body.imageName,
             imageData: req.body.imageData
