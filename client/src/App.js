@@ -12,13 +12,14 @@ import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 
 //========PARTIAL COMPONENTS=======
-import Navbar from './Components/partials/Navbar/Navbar';
+import Navbar from './Components/partials/Navbar/Navbar'
 
 //========AUTH COMPONENTS=======
 import Signup from './Components/auth/Signup';
 import Login from './Components/auth/Login';
 
-//=======USER COMPONENTS=======
+//=======ROUTE COMPONENTS=======
+import Homepage from './Components/homepage/Homepage';
 import Profile from './Components/profile/Profile';
 
 //Check for token to keep user logged in
@@ -51,7 +52,7 @@ function App() {
             {/* Auth Routes */}
             <Route path="/signup" exact component={ Signup }/>
             <Route path="/login" exact component={ Login }/>
-  
+            <Route path="/" exact component={Homepage} />
             <Route path="/profile/:id" exact component={ Profile } />
           </Switch>
         </Router>
