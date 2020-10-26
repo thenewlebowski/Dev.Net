@@ -1,0 +1,47 @@
+.introContainer{
+    display: flex;
+    width: 100%;
+    background-color: #0B2027;
+}
+
+@media only screen and (min-width: 1001px){
+    .introContainer{
+        height: 50vh;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .introContainer {
+        height: 25vh;
+    }
+}
+
+.introInnerContainer{
+    margin: auto;
+    width: 75%;
+    height: 75%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #40798C;
+    border-radius: 10px;
+    color: #CFD7C7;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.introHeader{
+    margin: 0;
+}
+
+.introDesc{
+    line-height: 1.5;
+    font-size: 20px;
+}
+
+.introBtn{
+    padding: 6px 25px;
+    font-size: 20px;
+    border: none;
+}
