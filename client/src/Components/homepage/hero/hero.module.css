@@ -16,3 +16,10 @@
 }
 
 /* Hero Image */
+
+.heroImg{
+    width: 100%; 
+    bottom: 150px; 
+    position: fixed;
+    z-index: -1;
+}
