@@ -25,5 +25,7 @@
     /** fix width later this is a place holder for development */
     width: 33%;
     display: flex;
-    justify-content: space-around;
+    text-align: right;
+    flex-direction: column-reverse;
+    justify-content: space-between;
 }
