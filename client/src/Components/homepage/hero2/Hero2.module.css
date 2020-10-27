@@ -1,0 +1,9 @@
+.hero2Conatiner{
+    height: 50vh;
+    overflow: hidden;
+}
+
+.hero2Img{
+    width: 100%;
+    position: sticky;
+}
