@@ -1,22 +1,25 @@
-.introContainer{
+.descContainer{
     display: flex;
     width: 100%;
     background-color: #0B2027;
+    position: sticky;
+    top: -1px;
+    z-index:999;
 }
 
 @media only screen and (min-width: 1001px){
-    .introContainer{
+    .descContainer{
         height: 50vh;
     }
 }
 
 @media only screen and (max-width: 1000px){
-    .introContainer {
+    .descContainer {
         height: 25vh;
     }
 }
 
-.introInnerContainer{
+.descInnerContainer{
     margin: auto;
     width: 75%;
     height: 75%;
@@ -29,18 +32,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    box-shadow: 20px 20px #888888;
 }
 
-.introHeader{
+.descHeader{
     margin: 0;
 }
 
-.introDesc{
+.descDesc{
     line-height: 1.5;
     font-size: 20px;
 }
 
-.introBtn{
+.descBtn{
     padding: 6px 25px;
     font-size: 20px;
     border: none;
