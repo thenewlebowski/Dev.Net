@@ -12,7 +12,8 @@ import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 
 //========PARTIAL COMPONENTS=======
-import Navbar from './Components/partials/Navbar/Navbar'
+import Navbar from './Components/partials/Navbar/Navbar';
+import Footer from './Components/partials/Footer/Footer';
 
 //========AUTH COMPONENTS=======
 import Signup from './Components/auth/Signup';
@@ -55,6 +56,7 @@ function App() {
             <Route path="/" exact component={Homepage} />
             <Route path="/profile/:id" exact component={ Profile } />
           </Switch>
+          <Footer params={window.location.pathname}/>
         </Router>
       </div>
     </Provider>
