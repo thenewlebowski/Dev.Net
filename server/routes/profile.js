@@ -9,7 +9,7 @@ const   User        = require('../models/User');
  * @author Colton Nielsen
  */
 router.route('/:username').get((req, res) => {
-    process.env.ENV !== "Production" ? console.log('[Profile Route] ' + req.params.username) : null;
+    process.env.ENV !== "production" ? console.log('[Profile Route] ' + req.params.username) : null;
 
     User.findOne({ username : req.params.username }, (err, user)=>{
         if(err)

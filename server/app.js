@@ -17,7 +17,7 @@ let usersRouter = require('./routes/users');
 let imageRouter = require('./routes/uploads');
 let authRouter = require('./routes/auth/auth');
 let profileRouter = require('./routes/profile');
-
+let homePageRouter = require('./routes/homepage');
 
 let app = express();
 
@@ -44,11 +44,13 @@ app.use(passport.initialize());
 //PASSPORT CONFIG
 require('./config/passport')(passport);
 
+//=======SETTING ROUTES=======//
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/image', imageRouter);
 app.use('/api/profile', profileRouter);
+app.use('/api/homepage', homePageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
