@@ -4,7 +4,7 @@
     background-color: #0B2027;
     position: sticky;
     top: -1px;
-    z-index:999;
+    z-index:990;
 }
 
 @media only screen and (min-width: 1001px){
