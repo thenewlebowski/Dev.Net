@@ -1,8 +1,14 @@
 .navbar{
     background-color: #0B2027;
-    height: 50px;
+    border-bottom: 2px solid #F6F1D1;
+    height: 5vh;
     padding: 0 10px;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 9999;
 }
+
 
 .navbarContainer{
     display: flex;
@@ -26,6 +32,6 @@
     width: 33%;
     display: flex;
     text-align: right;
-    flex-direction: column-reverse;
+    flex-direction: row-reverse;
     justify-content: space-between;
 }
