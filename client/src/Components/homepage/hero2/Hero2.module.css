@@ -1,6 +1,9 @@
 .hero2Conatiner{
     height: 50vh;
     overflow: hidden;
+    z-index: 1000;
+    position: sticky;
+    top : 0;
 }
 
 .hero2Img{
