@@ -12,6 +12,8 @@ export default function Navbar() {
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
+    const profilePath = auth.isAuthenticated ? "/p/" + auth.user.username : "/login";
+
     return (
         <nav className={classes.navbar}>
             <div className="container">
@@ -20,7 +22,7 @@ export default function Navbar() {
                         <Link to="/" >Dev.Net</Link>
                     </div>
                     <div className={classes.navItems}>
-                        {!auth.isAuthenticated ? <Link to="/login" >Login</Link> : <Link to="/profile" >Profile</Link>}
+                        {!auth.isAuthenticated ? <Link to="/login" >Login</Link> : <Link to={ profilePath } >Profile</Link>}
                         {!auth.isAuthenticated ? <Link to="/signup" >Sign Up</Link> : <Link to="/wall">Wall</Link>}
                         {auth.isAuthenticated ? <Link to="#" onClick={()=>dispatch(logoutUser())}>Logout</Link> : null}
                         {auth.isAuthenticated ? <Link to="/settings"> <FontAwesomeIcon icon={faCog} /> </Link> : null}
