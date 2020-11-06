@@ -29,14 +29,14 @@ router.route('/register').post((req, res) =>{
             return res.status(400).json({ email: 'Email already exists' });
         } else {
             newUser = new User({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password,
+                firstName:  req.body.firstName,
+                lastName:   req.body.lastName,
+                username:   req.body.username,
+                password:   req.body.password,
+                email:      req.body.email,
             });
             
-        //Create profile while creating user
+            //Create profile while creating user
             newProfile = new Profile({
                 user: {
                     id: newUser.id,
@@ -61,9 +61,11 @@ router.route('/register').post((req, res) =>{
     })
 })
 
-//@route POST api/auth/login
-//@desc Login and return JWT token
-//@access Public
+/**
+  *@route POST api/auth/login
+  *@desc Login and return JWT token
+  *@access Public
+  */
 
 router.route('/login').post((req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
@@ -82,14 +84,19 @@ router.route('/login').post((req, res) => {
         if(!user){
             return res.status(404).json({ emailNotFound: 'Email not found'})
         }
+
+        console.log(user);
     //Check password
         bcrypt.compare(password, user.password).then(isMatch => {
             if(isMatch) {
             //User matched
             //Create JWT Payload
                 const payload = {
-                    id: user.id,
-                    name: user.name
+                    firstName:  user.firstName,
+                    username:   user.username,
+                    lastName:   user.lastName,
+                    isAdmin:    user.isAdmin,
+                    id:         user.id,
                 }
 
             //Sign token
