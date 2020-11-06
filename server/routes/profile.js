@@ -24,7 +24,8 @@ router.route('/:username').get((req, res) => {
                 console.log(err);
                 return res.status(400).json({err : error});
             }
-            res.json(profile);
+
+            return res.json(profile);
         })
     });
 })

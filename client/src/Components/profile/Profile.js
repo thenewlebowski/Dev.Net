@@ -1,35 +1,43 @@
 import React, { Component } from 'react';
-import classes from './Profile.module.css';
-import axios from 'axios';
+import axios                from 'axios';
+
+//==========STYLING========//
+import classes              from './Profile.module.css';
 
 //========COMPONENTS======//
-import ProfileDesc from './ProfileDesc/ProfileDesc';
-import ProfileEdit from './ProfileEdit/ProfileEdit';
-import ImgModOverlay from '../image/ImgModOverlay';
-import Auxiliary from '../../hoc/Auxiliary';
+import ProfileDesc      from './ProfileDesc/ProfileDesc';
+import ProfileEdit      from './ProfileEdit/ProfileEdit';
+import ImgModOverlay    from '../image/ImgModOverlay';
+import Auxiliary        from '../../hoc/Auxiliary';
 
 
 //Profile Picture
 import profilePicture from '../../images/profilePicture.jpg';
     
 export default class Profile extends Component {
+
     state = {
-        profilePic: profilePicture,
-        username: '',
-        bio: '',
-        langs: [],
-        posts: [],
-        editMode: false,
-        imgModVisible: false
+        username : this.props.match.params.username,//string
+        profilePic : profilePicture,                //file
+        imgModVisible : false,                      //boolean
+        editMode : false,                           //boolean
+        loading : true,                             //boolean
+        profileId : '',                             //string
+        langs : [],                                 //array
+        posts : [],                                 //array
+        bio : '',                                   //string
     }
 
     componentDidMount(){
-        axios.get(process.env.REACT_APP_PROXY + '/profile/' + this.props.match.params.id)
+        axios.get(process.env.REACT_APP_PROXY + '/profile/' + this.props.match.params.username)
             .then(res => {
+                console.log(res.data);
                 this.setState({
-                    username : res.data.user.username,
-                    bio: res.data.bio,
-                    langs: res.data.lang ? res.data.lang : [],
+                    langs       : res.data.lang ? res.data.lang : [],
+                    username    : this.props.match.params.username, //username that we searched for in the paramters
+                    userId      : res.data.user.id, //id of the user that created the profile
+                    bio         : res.data.bio,
+                    loading     : false,
                 })
             })
             .catch(err => console.log(err));
@@ -118,10 +126,13 @@ export default class Profile extends Component {
     render(){
         return (
             <Auxiliary>
+
                 <ImgModOverlay
                 handleImgModToggle={this.handleImgModToggle}
                 visible={this.state.imgModVisible}
                 handleUploadImg={this.handleUploadImg}/>
+
+                {!this.state.loading ? //Checks to see if this.state.loading is set to true, if so don't render anything in yet
 
                 <div className='container'>
                     {/* Layout Profile design */}
@@ -135,21 +146,23 @@ export default class Profile extends Component {
                                                     className={'btn btnWarning'}
                                                     onClick={this.handleImgModToggle }>Resize</button> : null }
                         </div>
-
+                        
                         {this.state.editMode ? 
                             <ProfileEdit
-                                editToggle={ this.handleEditModeToggle }
-                                languages={ this.languages }
-                                data={this.state}
-                            />
-                            : 
-                            <ProfileDesc
-                            editToggle={ this.handleEditModeToggle}
-                            username={ this.state.username }
-                            editMode={ this.state.editMode }
-                            languages={this.languages}
-                            langs={ this.state.langs }
-                            bio={ this.state.bio }
+                            editToggle  = { this.handleEditModeToggle }
+                            username    = { this.state.username }
+                            languages   = { this.languages }
+                            data        = { this.state }
+                            /> 
+                            :  
+                            <ProfileDesc 
+                            editToggle  = { this.handleEditModeToggle}
+                            username    = { this.state.username }
+                            editMode    = { this.state.editMode }
+                            userId      = { this.state.userId }
+                            langs       = { this.state.langs }
+                            bio         = { this.state.bio }
+                            languages   = { this.languages }
                             />}
 
                     </div>
@@ -163,7 +176,8 @@ export default class Profile extends Component {
                         <h1>No recent contribution yet</h1>}
                     </div>
                     {/* Link user and profile via user_id*/}
-                </div>
+
+                </div> : null /** this should be loading icon */}
             </Auxiliary>
         )
         
