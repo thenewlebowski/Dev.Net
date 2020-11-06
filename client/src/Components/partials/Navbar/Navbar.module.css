@@ -9,17 +9,17 @@
     z-index: 9999;
 }
 
+.navbar a{
+    text-decoration: none;
+    color: white;
+}
+
 
 .navbarContainer{
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-}
-
-.navbar a{
-    color: white;
-    text-decoration: none;
 }
 
 .navHeader{
@@ -31,7 +31,15 @@
     /** fix width later this is a place holder for development */
     width: 33%;
     display: flex;
-    text-align: right;
-    flex-direction: row-reverse;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.navItems a{
+    padding: 0 15px;
+
+}
+
+.navItems a:not(:last-child){
+    border-right:solid 2px #eee;
 }
