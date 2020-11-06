@@ -7,18 +7,6 @@
     z-index:990;
 }
 
-@media only screen and (min-width: 1001px){
-    .descContainer{
-        height: 50vh;
-    }
-}
-
-@media only screen and (max-width: 1000px){
-    .descContainer {
-        height: 25vh;
-    }
-}
-
 .descInnerContainer{
     margin: auto;
     width: 75%;
@@ -41,11 +29,32 @@
 
 .descDesc{
     line-height: 1.5;
-    font-size: 20px;
 }
 
 .descBtn{
     padding: 6px 25px;
     font-size: 20px;
     border: none;
+}
+
+/*=============MEDIA QUERIES===============*/
+@media only screen and (min-width: 1001px){
+    .descContainer{
+        height: 50vh;
+    }
+
+    .descDesc{
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .descContainer {
+        font-size: .75rem;
+        height: 40vh;
+    }
+
+    .descDesc{
+        font-size: 15px;
+    }
 }
