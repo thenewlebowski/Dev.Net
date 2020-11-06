@@ -50,13 +50,13 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
+            <Route path="/"             exact component={ Homepage } />
+            <Route path="/p/:username"  exact component={ Profile } />
             {/* Auth Routes */}
-            <Route path="/signup" exact component={ Signup }/>
-            <Route path="/login" exact component={ Login }/>
-            <Route path="/" exact component={Homepage} />
-            <Route path="/profile/:id" exact component={ Profile } />
+            <Route path="/signup"       exact component={ Signup }/>
+            <Route path="/login"        exact component={ Login }/>
           </Switch>
-          <Footer params={window.location.pathname}/>
+          {/* <Footer params={window.location.pathname}/> */}
         </Router>
       </div>
     </Provider>
