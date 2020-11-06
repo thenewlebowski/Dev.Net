@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import isEmpty from 'is-empty';
+import axios    from 'axios';
+import isEmpty  from 'is-empty';
+
+//=======REACT COMPONENTS======//
+import { Helmet } from 'react-helmet';
 
 //=======COMPONENTS========//
-import Hero from './hero/Hero';
-import Desc from './desc/Desc';
-import Hero2 from './hero2/Hero2';
-import Hero3 from './hero3/Hero3';
+import Hero     from './hero/Hero';
+import Desc     from './desc/Desc';
+import Hero2    from './hero2/Hero2';
+import Hero3    from './hero3/Hero3';
 
 //=======FONT AWESOME ICONS=======//
 import { faBug, faNewspaper, faBomb, faChevronCircleRight, faTshirt, faStoreAlt } from '@fortawesome/free-solid-svg-icons';
@@ -48,6 +51,9 @@ export default class Homepage extends Component {
     render() {
         return (
             <div>
+                <Helmet>
+                    <title>Dev.Node | Connecting Devs</title>
+                </Helmet>
                 <Hero />
                 
                 <Desc
