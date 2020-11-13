@@ -1,0 +1,9 @@
+.loader{
+    transition: .5s all;
+    transition-timing-function: ease-in;
+    background-color: #70A9A1;
+}
+
+.fadeOut {
+    opacity: 0;
+}

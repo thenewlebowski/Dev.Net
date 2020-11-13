@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 
 //==========STYLING========//
+import { Spring }           from 'react-spring/renderprops'
 import classes              from './Profile.module.css';
 
 //========COMPONENTS======//
 import ProfileDesc      from './ProfileDesc/ProfileDesc';
 import ProfileEdit      from './ProfileEdit/ProfileEdit';
+import Loader           from '../reusable/Loader/Loader';
 import ImgModOverlay    from '../image/ImgModOverlay';
 import Auxiliary        from '../../hoc/Auxiliary';
 
@@ -23,6 +25,7 @@ export default class Profile extends Component {
         editMode : false,                           //boolean
         loading : true,                             //boolean
         profileId : '',                             //string
+        timer : 3000,                               //string [timer for animation effect]
         langs : [],                                 //array
         posts : [],                                 //array
         bio : '',                                   //string
@@ -31,14 +34,16 @@ export default class Profile extends Component {
     componentDidMount(){
         axios.get(process.env.REACT_APP_PROXY + '/p/' + this.props.match.params.username)
             .then(res => {
-                console.log(res.data);
-                this.setState({
-                    langs       : res.data.lang ? res.data.lang : [],
-                    username    : this.props.match.params.username, //username that we searched for in the paramters
-                    userId      : res.data.user.id, //id of the user that created the profile
-                    bio         : res.data.bio,
-                    loading     : false,
-                })
+                setTimeout(() => {
+                    console.log(res.data);
+                    this.setState({
+                        langs       : res.data.lang ? res.data.lang : [],
+                        username    : this.props.match.params.username, //username that we searched for in the paramters
+                        userId      : res.data.user.id, //id of the user that created the profile
+                        bio         : res.data.bio,
+                        loading     : false,
+                    })    
+                }, this.state.timer);
             })
             .catch(err => console.log(err));
     }
@@ -133,51 +138,64 @@ export default class Profile extends Component {
                 handleUploadImg={this.handleUploadImg}/>
 
                 {!this.state.loading ? //Checks to see if this.state.loading is set to true, if so don't render anything in yet
+                <Spring
+                    from={{ opacity:0 }}
+                    to={{ opacity:1 }}
+                >
+                    {props =>
 
-                <div className='container'>
-                    {/* Layout Profile design */}
-                    <div className={classes.profileHeader}>
-                        <div className={ classes.imgContainer }>
-                            <img src={this.state.profilePic}  className={classes.img} alt="Profile Picture"/>
-                            { this.state.editMode ? <button 
-                                                    className={'btn btnPrimary'}
-                                                    onClick={ this.handleImgModToggle }>Upload</button> : null }
-                            { this.state.editMode ? <button 
-                                                    className={'btn btnWarning'}
-                                                    onClick={this.handleImgModToggle }>Resize</button> : null }
+                    <div className='container' style={props} >
+                        {/* Layout Profile design */}
+                        <div className={classes.profileHeader}>
+                            <div className={ classes.imgContainer }>
+                                <img src={this.state.profilePic}  className={classes.img} alt="Profile Picture"/>
+                                { this.state.editMode ? <button 
+                                                        className={'btn btnPrimary'}
+                                                        onClick={ this.handleImgModToggle }>Upload</button> : null }
+                                { this.state.editMode ? <button 
+                                                        className={'btn btnWarning'}
+                                                        onClick={this.handleImgModToggle }>Resize</button> : null }
+                            </div>
+                            
+                            {this.state.editMode ? 
+                                <ProfileEdit
+                                editToggle  = { this.handleEditModeToggle }
+                                username    = { this.state.username }
+                                languages   = { this.languages }
+                                data        = { this.state }
+                                /> 
+                                :  
+                                <ProfileDesc 
+                                editToggle  = { this.handleEditModeToggle}
+                                username    = { this.state.username }
+                                editMode    = { this.state.editMode }
+                                userId      = { this.state.userId }
+                                langs       = { this.state.langs }
+                                bio         = { this.state.bio }
+                                languages   = { this.languages }
+                                />}
+
                         </div>
                         
-                        {this.state.editMode ? 
-                            <ProfileEdit
-                            editToggle  = { this.handleEditModeToggle }
-                            username    = { this.state.username }
-                            languages   = { this.languages }
-                            data        = { this.state }
-                            /> 
-                            :  
-                            <ProfileDesc 
-                            editToggle  = { this.handleEditModeToggle}
-                            username    = { this.state.username }
-                            editMode    = { this.state.editMode }
-                            userId      = { this.state.userId }
-                            langs       = { this.state.langs }
-                            bio         = { this.state.bio }
-                            languages   = { this.languages }
-                            />}
+                        {/* Recent Converstations / Questions */}
+                        <h1>Recent Discussions:</h1>
+                        {/* This will be a forEach loop going over every post user has made */}
+                        <div className={classes.recentPosts}>
+                            {this.state.posts > 1 ? 
+                            this.recentPosts() : 
+                            <h1>No recent contribution yet</h1>}
+                        </div>
+                        {/* Link user and profile via user_id*/}
 
                     </div>
-                    
-                    {/* Recent Converstations / Questions */}
-                    <h1>Recent Discussions:</h1>
-                    {/* This will be a forEach loop going over every post user has made */}
-                    <div className={classes.recentPosts}>
-                        {this.state.posts > 1 ? 
-                        this.recentPosts() : 
-                        <h1>No recent contribution yet</h1>}
-                    </div>
-                    {/* Link user and profile via user_id*/}
+                    }
+                </Spring>
+                :   
+                <Loader 
+                timer={ this.state.timer }
+                delay={ 200 }
+                /> }
 
-                </div> : null /** this should be loading icon */}
             </Auxiliary>
         )
         

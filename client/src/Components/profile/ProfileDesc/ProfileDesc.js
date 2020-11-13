@@ -11,10 +11,6 @@ export default function ProfileDesc(props) {
 
     //Checks to see if user is authenticated and if user viewing profile is profile owner
     let profileOwner = (auth.isAuthenticated && auth.user.id === props.userId) ? true : false;
-
-    console.log("[ProfileDesc] " + profileOwner);
-    console.log("[ProfileDesc] " + props.userId);
-    console.log("[ProfileDesc] " + auth.user.id);
     
     return (
         <div className={classes.profileDesc}>

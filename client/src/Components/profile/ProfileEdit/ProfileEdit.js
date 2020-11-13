@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
 import classes from './ProfileEdit.module.css';
@@ -13,7 +14,7 @@ export default function ProfileEdit(props) {
 
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
-    const [langs, setLangs] = useState([]); //testing purposes
+    const [langs, setLangs] = useState([]);
     const [tempLang, setTempLang] = useState('');
     const [errs, setErrs] = useState({});
     // const [picUrl, setPicUrl] = useState(profilePicture);
@@ -22,7 +23,8 @@ export default function ProfileEdit(props) {
     let onSubmit = (e) =>{
         e.preventDefault();
         e.stopPropagation();
-
+        axios.post(process.env.REACT_APP_PROXY + '/p/edit');
+        console.log(bio, langs, tempLang, username)
         console.log(e);
     }
 
@@ -87,7 +89,7 @@ export default function ProfileEdit(props) {
             ...errs,
             langs:""
         })
-        //checks to see if entry is emppty      ||    if lang is already in array
+        //checks to see if entry is empty      ||    if lang is already in array
         if(e.target.value === "" || langs.filter(lang => lang === e.target.value).length > 0)
         {
             return setErrs({ //Err handling 
@@ -100,8 +102,6 @@ export default function ProfileEdit(props) {
         newLangs.push(e.target.value);
         setTempLang('');
         return setLangs(newLangs);
-        
-
     }
 
     let btnClasses = [classes.btn]

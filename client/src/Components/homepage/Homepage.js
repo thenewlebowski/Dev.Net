@@ -4,6 +4,8 @@ import isEmpty  from 'is-empty';
 
 //=======REACT COMPONENTS======//
 import { Helmet } from 'react-helmet';
+import { Loader } from 'react-loader-spinner';
+import { Spring } from 'react-spring/renderprops';
 
 //=======COMPONENTS========//
 import Hero     from './hero/Hero';
@@ -50,58 +52,63 @@ export default class Homepage extends Component {
     }
     render() {
         return (
-            <div>
-                <Helmet>
-                    <title>Dev.Node | Connecting Devs</title>
-                </Helmet>
-                <Hero />
-                
-                <Desc
-                    body ='Software development careers are estimated to grow 50 percent by the year 2025. Our goal is to educate future 
-                    developers of up and coming technologies. In our efforts we hope to establish an ecosystem of thriving developers that 
-                    continue to grow and keep our ideologies strong by educating their own peers. If you are interested in joining the Dev 
-                    Army click the link below.'
-                    iconBtn = { faChevronCircleRight }
-                    iconHeader = { faConnectdevelop }
-                    header ='Connect. Build. Succeed.'
-                    textAlign ='left'
-                    btnText ='Join Now'
-                    href ='/signup'
-                    zIndex ='999'
-                />
-                <Hero2 />
-                
-                <Desc 
-                    body = 'We don’t agree with the idea of paying for education or entertainment. We do still need to pay for our team to 
-                    collaborate and research to get you the best information you can get. So instead of supporting us directly from a patrion 
-                    account or a donations. Please consider buying some of our merch. You’ll look good and you will be helping advertise what 
-                    we do!'
-                    header = 'Support the cause'
-                    iconHeader = { faTshirt }
-                    iconBtn = { faStoreAlt }
-                    textAlign = 'right'
-                    btnText = 'Shop'
-                    href = '/shop'
-                    zIndex = '1002'
-                />
-                <Hero3 />
-
-                {!isEmpty(this.state.recentPost) ? 
-                <span>
+            <Spring
+                from={{opacity : 0}}
+                to={{opacity : 1}}
+            >
+                {props =>
+                <div style={props}>
+                    <Helmet>
+                        <title>Dev.Node | Connecting Devs</title>
+                    </Helmet>
+                    <Hero />
+                    
                     <Desc
-                        iconHeader={ this.state.recentPost.err ?  faBug : faNewspaper }
-                        iconBtn={ this.state.recentPost.err ? faBomb : faChevronCircleRight }
-                        btnText={ this.state.recentPost.btnText }
-                        header={ this.state.recentPost.header }
-                        body={ this.state.recentPost.body }
-                        href={ this.state.recentPost.href }
-                        textAlign = 'left'
-                        zIndex='1004'
+                        body ='Software development careers are estimated to grow 50 percent by the year 2025. Our goal is to educate future 
+                        developers of up and coming technologies. In our efforts we hope to establish an ecosystem of thriving developers that 
+                        continue to grow and keep our ideologies strong by educating their own peers. If you are interested in joining the Dev 
+                        Army click the link below.'
+                        iconBtn = { faChevronCircleRight }
+                        iconHeader = { faConnectdevelop }
+                        header ='Connect. Build. Succeed.'
+                        textAlign ='left'
+                        btnText ='Join Now'
+                        href ='/signup'
+                        zIndex ='999'
                     />
-                    <Hero3 />
-                </span> : null}
+                    <Hero2 />
 
-            </div>
+                    <Desc 
+                        body = {"We don’t agree with the idea of paying for education or entertainment. We do still need to pay for our team to collaborate and research to get you the best information you can get. So instead of supporting us directly from a patrion account or a donations. Please consider buying some of our merch. You’ll look good and you will be helping advertise what we do!"}
+                        header = 'Support the cause'
+                        iconHeader = { faTshirt }
+                        iconBtn = { faStoreAlt }
+                        textAlign = 'right'
+                        btnText = 'Shop'
+                        href    = '/shop'
+                        zIndex  = '1002'
+                    />
+
+                    <Hero3 />
+
+                    {!isEmpty(this.state.recentPost) ? 
+                    <span>
+                        <Desc
+                            iconHeader={ this.state.recentPost.err ?  faBug : faNewspaper }
+                            iconBtn={ this.state.recentPost.err ? faBomb : faChevronCircleRight }
+                            btnText={ this.state.recentPost.btnText }
+                            header={ this.state.recentPost.header }
+                            body={ this.state.recentPost.body }
+                            href={ this.state.recentPost.href }
+                            textAlign = 'left'
+                            zIndex='1004'
+                        />
+                        <Hero3 />
+                    </span> : null}
+
+                </div>
+                }
+            </Spring>
         )
     }
 }
