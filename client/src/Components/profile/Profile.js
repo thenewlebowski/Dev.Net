@@ -29,7 +29,7 @@ export default class Profile extends Component {
     }
 
     componentDidMount(){
-        axios.get(process.env.REACT_APP_PROXY + '/profile/' + this.props.match.params.username)
+        axios.get(process.env.REACT_APP_PROXY + '/p/' + this.props.match.params.username)
             .then(res => {
                 console.log(res.data);
                 this.setState({
