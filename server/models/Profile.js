@@ -6,11 +6,11 @@ const profileSchema = new Schema({
    bio: {
        type: String,
        required: true,
-       default: 'Please add a short autobiography.'
+       default: ''
    },
-   lang: {
+   langs: {
         type: Schema.Types.Mixed,
-        default: null,
+        default: [],
         required: false,
    },
    descussions: {

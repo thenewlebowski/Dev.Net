@@ -1,9 +1,14 @@
+//==========TOOLS=========//
+import { connect }          from 'react-redux';
+import PropTypes            from 'prop-types';
 import React, { Component } from 'react';
 import axios                from 'axios';
 
 //==========STYLING========//
 import { Spring }           from 'react-spring/renderprops'
 import classes              from './Profile.module.css';
+
+
 
 //========COMPONENTS======//
 import ProfileDesc      from './ProfileDesc/ProfileDesc';
@@ -16,7 +21,7 @@ import Auxiliary        from '../../hoc/Auxiliary';
 //Profile Picture
 import profilePicture from '../../images/profilePicture.jpg';
     
-export default class Profile extends Component {
+class Profile extends Component {
 
     state = {
         username : this.props.match.params.username,//string
@@ -35,9 +40,8 @@ export default class Profile extends Component {
         axios.get(process.env.REACT_APP_PROXY + '/p/' + this.props.match.params.username)
             .then(res => {
                 setTimeout(() => {
-                    console.log(res.data);
                     this.setState({
-                        langs       : res.data.lang ? res.data.lang : [],
+                        langs       : res.data.langs,
                         username    : this.props.match.params.username, //username that we searched for in the paramters
                         userId      : res.data.user.id, //id of the user that created the profile
                         bio         : res.data.bio,
@@ -53,7 +57,6 @@ export default class Profile extends Component {
     }
 
     handleChange = (e) =>{
-        console.log(e.target.name);
         this.setState({
             editData:{
                 ...this.state.editData,
@@ -123,6 +126,7 @@ export default class Profile extends Component {
     }
 
     languages(langs){
+        return console.log(langs);
         return langs.map(lang => (
             <li>{lang}</li>
         ))
@@ -144,7 +148,7 @@ export default class Profile extends Component {
                 >
                     {props =>
 
-                    <div className='container' style={props} >
+                    <div className={ classes.container } style={props} >
                         {/* Layout Profile design */}
                         <div className={classes.profileHeader}>
                             <div className={ classes.imgContainer }>
@@ -161,6 +165,7 @@ export default class Profile extends Component {
                                 <ProfileEdit
                                 editToggle  = { this.handleEditModeToggle }
                                 username    = { this.state.username }
+                                auth        = { this.props.auth }
                                 languages   = { this.languages }
                                 data        = { this.state }
                                 /> 
@@ -171,22 +176,24 @@ export default class Profile extends Component {
                                 editMode    = { this.state.editMode }
                                 userId      = { this.state.userId }
                                 langs       = { this.state.langs }
+                                auth        = { this.props.auth }
                                 bio         = { this.state.bio }
                                 languages   = { this.languages }
                                 />}
 
                         </div>
-                        
-                        {/* Recent Converstations / Questions */}
-                        <h1>Recent Discussions:</h1>
-                        {/* This will be a forEach loop going over every post user has made */}
-                        <div className={classes.recentPosts}>
-                            {this.state.posts > 1 ? 
-                            this.recentPosts() : 
-                            <h1>No recent contribution yet</h1>}
-                        </div>
-                        {/* Link user and profile via user_id*/}
 
+                        {/* Posts contaibner */}
+                        <div className={ classes.postsContainer }>
+                            {/* Recent Converstations / Questions */}
+                            <h1>Recent Discussions:</h1>
+                            {/* This will be a forEach loop going over every post user has made */}
+                            <div className={classes.recentPosts}>
+                                {this.state.posts > 0 ? 
+                                this.recentPosts() : 
+                                <h1>No recent contribution yet</h1>}
+                            </div>
+                        </div>
                     </div>
                     }
                 </Spring>
@@ -202,3 +209,17 @@ export default class Profile extends Component {
     }
     
 }
+
+Profile.propTypes = {
+    auth    :PropTypes.object.isRequired
+}
+
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps)(Profile);
