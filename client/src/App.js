@@ -14,6 +14,7 @@ import { setCurrentUser, logoutUser } from './actions/authActions';
 //========PARTIAL COMPONENTS=======
 import Navbar from './Components/partials/Navbar/Navbar';
 import Footer from './Components/partials/Footer/Footer';
+import Flag   from './Components/partials/Flag/Flag.js'
 
 //========AUTH COMPONENTS=======
 import Signup from './Components/auth/Signup';
@@ -49,6 +50,7 @@ function App() {
       <div className="app">
         <Router>
           <Navbar />
+          <Flag   />
           <Switch>
             <Route path="/"             exact component={ Homepage } />
             <Route path="/p/:username"  exact component={ Profile } />

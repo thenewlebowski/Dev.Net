@@ -1,0 +1,25 @@
+.opacity {
+    opacity: 0;
+}
+
+.flag {
+    transition: .5s all;
+    text-align: center;
+    opacity: 0;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+    height: 20vh;
+    top: 5vh;
+}
+
+.error {
+    opacity: .75;
+    background-color: #baffc9;
+}
+
+.success {
+    z-index: 9999;
+    opacity: .75;
+    background-color: #baffc9;
+}
