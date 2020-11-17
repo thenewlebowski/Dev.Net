@@ -17,6 +17,7 @@ function Login(props) {
         if(auth.isAuthenticated){
             props.history.push('/');
         }
+        
     }, [])
 
 

@@ -17,8 +17,6 @@ function Signup(props) {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        // setError({...errors})
-        // console.log(errors)
     }, )
     
     function onSubmit(e){
