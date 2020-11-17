@@ -1,5 +1,10 @@
+.container{
+    position: relative;
+    top: 5vh;
+}
+
 .profileHeader{
-    margin-top: 15px; 
+    /* margin-top: 15px;  */
     display: flex;
     align-items: center;
 }

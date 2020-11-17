@@ -14,12 +14,13 @@
 }
 
 .error {
-    opacity: .75;
-    background-color: #baffc9;
+    opacity: .95;
+    z-index: 9999;
+    background-color: #ffb3ba;
 }
 
 .success {
+    opacity: .95;
     z-index: 9999;
-    opacity: .75;
     background-color: #baffc9;
 }

@@ -15,7 +15,6 @@ export default function Navbar() {
     const profilePath = auth.isAuthenticated ? "/p/" + auth.user.username : "/login";
 
     useEffect(() => {
-        console.log(auth)
         return () => {
             
         }
@@ -30,7 +29,7 @@ export default function Navbar() {
                     </div>
                     <div className={classes.navItems}>
                         {!auth.isAuthenticated ? <Link to="/login" >Login</Link> : <Link to={ profilePath } >Profile</Link>}
-                        {!auth.isAuthenticated ? <Link to="/signup" >Sign Up</Link> : <Link to="/wall">Wall</Link>}
+                        {!auth.isAuthenticated ? <Link to="/signup" >Sign Up</Link> : <Link to="/node">Node</Link>}
                         {auth.isAuthenticated ? <Link to="#" onClick={()=>dispatch(logoutUser())}>Logout</Link> : null}
                         {auth.isAuthenticated ? <Link to="/settings"> <FontAwesomeIcon icon={faCog} /> </Link> : null}
                     </div>
