@@ -38,6 +38,10 @@ const userSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+    },
+    token   : {
+        type: String,
+        required: false,
     }
 })
 

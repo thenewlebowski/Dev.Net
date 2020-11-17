@@ -34,8 +34,29 @@ router.route('/:username').get((req, res) => {
  * @author Colton Nielsen
  */
 router.route('/edit').post((req, res) => {
-    process.env.ENV !== "production" ? console.log('[Profile Route] ' + req.params.username) : null;
-    console.log(req);
+    return res.status(404).json({flag: {err: 'Need to set this path to work with JWT verification sooner then later'}});
+    //Find user by token given in headers
+    //Need to turn this 
+    User.findOne({  token: req.headers.authorization }, (err, user)=>{
+        //Checks if mongoose returns an error if so also check if in production and respond accordingly
+        if(err)         return process.env.ENV !== "production" ? res.status(400).json({flag: {err: err}}) : res.status(404).json({flag: {error: "There was an error trying to process your request. Please try again later"}});
+
+        if(!user)       return res.status(400).json({err: "You are not the owner of this account. If you think you are getting this message by mistake please contact our customer service."});
+
+        //find profile so we can save user changes to it
+        Profile.findOne({   _id: user.profile.id    }, ( err, profile ) => {
+            //Checks if mongoose returns an error if so also check if in production and respond accordingly
+            if(err)         return process.env.ENV !== "production" ? res.status(400).json({err:    {mongoose: err}}) : res.status(404).json({err: {mongoose:"There was an error trying to process your request. Please try again later"}});
+            
+            //Set database to req variables & save
+            profile.bio     = req.body.bio;
+            profile.langs   = req.body.langs;
+            profile.save();
+
+            //return status
+            return res.status(200).json({flag : {success: 'Profile successfully updated'}});
+        })
+    })
 })
 
 //Get Profile Img /** This is only for a test */

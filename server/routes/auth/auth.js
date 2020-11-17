@@ -1,6 +1,6 @@
-const   router = require('express').Router(),
-        jwt = require('jsonwebtoken'),   
-        bcrypt = require('bcrypt');
+const   router  = require('express').Router(),
+        jwt     = require('jsonwebtoken'),   
+        bcrypt  = require('bcrypt');
 
         
 //Load input validation
@@ -90,8 +90,6 @@ router.route('/login').post((req, res) => {
         if(!user){
             return res.status(404).json({ emailNotFound: 'Email not found'})
         }
-
-        console.log(user);
     //Check password
         bcrypt.compare(password, user.password).then(isMatch => {
             if(isMatch) {
@@ -113,9 +111,12 @@ router.route('/login').post((req, res) => {
                         expiresIn: 31556926 //1 year in seconds
                     },
                     (err, token) => {
+                        token = 'Bearer ' + token;
+                        user.token = token;
+                        user.save();
                         res.json({
                             success: true,
-                            token: 'Bearer ' + token
+                            token: token,
                         });
                     }
                 );

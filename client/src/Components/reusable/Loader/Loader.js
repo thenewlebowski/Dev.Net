@@ -20,7 +20,6 @@ export default function Loader(props) {
     
     let fadeOut = () => setTimeout(() => {
         setStyles([...styles, classes.fadeOut]);
-        // console.log(classes);
     }, timer - props.delay);
     
     let style = {

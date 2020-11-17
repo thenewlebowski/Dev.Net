@@ -4,12 +4,16 @@ import classes  from './ProfileDesc.module.css';
 
 
 export default function ProfileDesc(props) {
-    //Sets the state auth vaiable to local auth variable
-    const auth = useSelector(state => state.auth);
-
     //Checks to see if user is authenticated and if user viewing profile is profile owner
-    let profileOwner = (auth.isAuthenticated && auth.user.id === props.userId) ? true : false;
-    
+    let profileOwner = (props.auth.isAuthenticated && props.auth.user.id === props.userId) ? true : false;
+
+    useEffect(() => {
+        console.log(props.langs);
+        return () => {
+            
+        }
+    }, [])
+
     let langs = () => {
         return props.langs.map( lang => (
             <li>{lang}</li>

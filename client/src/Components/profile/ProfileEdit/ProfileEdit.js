@@ -1,7 +1,17 @@
-import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
 import classes from './ProfileEdit.module.css';
+import { useDispatch } from 'react-redux';
+import isEmpty  from 'is-empty';
+import axios from 'axios';
+
+//=======REDUX ACTIONS======//
+import { 
+    setFlagSuccess, 
+    setFlagError, 
+} from '../../../actions/flagActions';
+
+
 
 export default function ProfileEdit(props) {
     /**
@@ -12,7 +22,9 @@ export default function ProfileEdit(props) {
      * @desc state for the current profile edit
      */
 
-    const [username, setUsername] = useState('');
+    const dispatch = useDispatch();
+
+    // const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
     const [langs, setLangs] = useState([]);
     const [tempLang, setTempLang] = useState('');
@@ -23,14 +35,31 @@ export default function ProfileEdit(props) {
     let onSubmit = (e) =>{
         e.preventDefault();
         e.stopPropagation();
-        axios.post(process.env.REACT_APP_PROXY + '/p/edit');
-        console.log(bio, langs, tempLang, username)
-        console.log(e);
+
+        //set user data object
+        const userData = {
+            langs,
+            bio,
+        }
+
+        //pass user data
+        axios.post(process.env.REACT_APP_PROXY + '/p/edit', userData)
+            .then((res)=> {
+                props.editToggle()
+                // dispatch success flag
+                dispatch(setFlagSuccess(res.data.flag.success))
+            })
+            .catch((err, res) => {
+                const data = err.response.data;
+                if(err.response){
+                    //dispatch error flag
+                    dispatch(setFlagError(data.flag.err));
+                }
+            })
     }
 
     useEffect(()=> {
-        console.log(props.data);
-        setUsername(props.data.username);
+        // setUsername(props.data.username);
         setBio(props.data.bio);
         setLangs(props.data.langs);
     },[]);
@@ -112,12 +141,7 @@ export default function ProfileEdit(props) {
 
                 <div className={classes.usernameContainer } >
                     <h5>Username</h5>
-                    <input
-                    onChange={ (e) => setUsername(e.target.value) }
-                    className={ classes.username }
-                    value={ username }
-                    name='username'
-                    type='text'/>
+                    <h4>{props.username}</h4>
                 </div>
                 
                 <div className="btnContainer">
@@ -136,6 +160,7 @@ export default function ProfileEdit(props) {
                 <div className={ classes.bioContainer }>
                     <h5>Bio</h5>
                     <textarea
+                    placeholder={ !isEmpty(bio) ? null : "Please enter in a short paragraph about yourself" }
                     onChange={ (e) => setBio(e.target.value) }
                     className={classes.bioTextarea}
                     value={bio}
