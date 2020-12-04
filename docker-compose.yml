@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+    client:
+        build:
+            context: .
+            dockerfile: ./client/Dockerfile
+        image: webapp-client
+        #restart: always
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./client:/client
+            - /client/node_modules\
+        tty: true
+
+        # links:
+        #     - server
+    server:
+        build:
+            context: .
+            dockerfile: ./server/Dockerfile
+        image: webapp-server
+        #restart: always
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./server:/server
+            - /server/node_modules
+        tty: true
