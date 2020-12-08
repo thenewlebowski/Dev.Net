@@ -6,8 +6,6 @@ WORKDIR /server
 COPY /package*.json /server/
 # install dependencies
 RUN npm install
-# Copy the current directory contents into the container at /server
-COPY . /server/
 #install nodemon globally
 RUN npm install nodemon -g
 # Make port 5000 available to the world outside this container
