@@ -2,11 +2,11 @@
 FROM mhart/alpine-node:12
 # Set the working directory to /client
 WORKDIR /client
-# copy package.json into the container at /client
-COPY package*.json /client/
+# Copy package*.json (both regular and lock file)
+COPY /package*.json /server/
 # install dependencies
 RUN npm install
-# Copy the current directory contents into the container at /client
+# Copy entire folder to docker container
 COPY . /client/
 # Make port 3000 available to the world outside this container
 EXPOSE 3000

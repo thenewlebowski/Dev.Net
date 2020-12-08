@@ -2,8 +2,8 @@ version: "3.8"
 services:
     client:
         build:
-            context: .
-            dockerfile: ./client/Dockerfile
+            context: ./client
+            dockerfile: ./Dockerfile
         image: webapp-client
         #restart: always
         ports:
@@ -12,13 +12,16 @@ services:
             - ./client:/client
             - /client/node_modules\
         tty: true
-
-        # links:
-        #     - server
+        env_file:
+            - ./client/.env.development.local
+        environment: 
+            - REACT_APP_NODE_ENV=local
+        links:
+            - server
     server:
         build:
-            context: .
-            dockerfile: ./server/Dockerfile
+            context: ./server
+            dockerfile: ./Dockerfile
         image: webapp-server
         #restart: always
         ports:
@@ -27,3 +30,8 @@ services:
             - ./server:/server
             - /server/node_modules
         tty: true
+        env_file:
+            #copy env variables
+            - ./server/.env
+        environment: 
+            - NODE_ENV=local

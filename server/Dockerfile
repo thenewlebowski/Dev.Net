@@ -2,14 +2,14 @@
 FROM mhart/alpine-node:12
 # Set the working directory to /server
 WORKDIR /server
-# copy package.json into the container at /server
-COPY package*.json /server/
+# Copy package*.json (both regular and lock file)
+COPY /package*.json /server/
 # install dependencies
 RUN npm install
 # Copy the current directory contents into the container at /server
 COPY . /server/
-# Copy environment variables over to container
-COPY .env /server
+#install nodemon globally
+RUN npm install nodemon -g
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 # Run the app when the container launches
