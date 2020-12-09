@@ -1,0 +1,85 @@
+.createPostCntr{
+    height: fit-content;
+    width: 75%;
+    /* background-color: aliceblue; */
+    background-color: #40798C;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #F6F1D1;
+}
+.postInput{
+    width: 100%;
+    height: 25px;
+    resize: none;
+    border-radius: 5px;
+    font-family: inherit;
+    box-sizing: border-box;
+    border: solid 1px #000;
+}
+
+.typeInput{
+    transition: all .5s;
+    font-size: 40px;
+    color: #F6F1D1;
+    margin-right: 5px;
+    margin-top: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.typeInput:hover{
+    cursor: pointer;
+}
+
+.choose{
+    display: inline;
+    float:  right;
+    font-size: 10px;
+}
+
+.react:hover{
+    color: #61DBFB
+}
+
+.angular:hover{
+    color : #dd1b16
+}
+
+.vue:hover{
+    color : #41B883
+}
+
+.laravel:hover{
+    color : #F05340;
+}
+.ellipsis:hover{
+    color: #2C3539;
+}
+
+
+
+@media(max-width: 1000px){
+    .choose{
+        display: none
+    }
+    
+    .react{
+        color: #61DBFB
+    }
+    
+    .angular{
+        color : #dd1b16
+    }
+    
+    .vue{
+        color : #41B883
+    }
+    
+    .laravel{
+        color : #F05340;
+    }
+    .createPostCntr{
+        width: 100%;
+    }
+}
