@@ -8,16 +8,22 @@ import {
     SET_CURRENT_USER
 } from './types';
 
+import {
+    setFlagSuccess,
+    setFlagError,
+} from './flagActions';
+
 //register user action
 export const registerUser = (userData, history) => dispatch => {
     axios.post(process.env.REACT_APP_PROXY + '/auth/register', userData)
         .then(res => history.push('/login'))
-        .catch(err => dispatch({
-                type:GET_ERRORS,
-                payload: err.response.data
-            }
-        )
-    )
+        .catch(err => dispatch(setFlagError(err.response.data.flag.error)));
+        // .catch(err => dispatch({
+        //         type:GET_ERRORS,
+        //         payload: err.response.data
+        //     }
+        // )
+    // )
 }
 //login user action
 export const loginUser = (userData, history) => dispatch =>{
@@ -34,13 +40,14 @@ export const loginUser = (userData, history) => dispatch =>{
             dispatch(setCurrentUser(decoded));
         })
         .then(res => history.push('/'))
-        .catch(err => 
-            dispatch({
-                type:GET_ERRORS,
-                payload: err.response.data
-            }
-        )    
-    )
+        .catch(err => dispatch(setFlagError(err.response.data.flag.err)));
+    //     .catch(err => 
+    //         dispatch({
+    //             type:GET_ERRORS,
+    //             payload: err.response.data
+    //         }
+    //     )    
+    // )
 }
 
 export const setCurrentUser = decoded => {
