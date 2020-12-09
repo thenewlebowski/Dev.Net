@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({extended:false}))
 app.use('/uploads', express.static('uploads'));
-require('dotenv').config();
+require('dotenv').config({ debug: process.env.DOTENV_DEBUG });
 
 app.use(cors());
 app.use(express.json());
