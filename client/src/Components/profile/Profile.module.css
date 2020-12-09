@@ -1,17 +1,30 @@
 .container{
+    min-height: 100vh;
     position: relative;
     top: 5vh;
 }
 
 .profileHeader{
     /* margin-top: 15px;  */
+    
+}
+
+.flexContainer{
     display: flex;
+    justify-content: space-around;
     align-items: center;
+    background-color : #40798C;
+    min-height: 35vh;
 }
 
 .imgContainer{
-    width: 25%;
+    height: 200px;
+    width:  200px;
+    overflow: hidden;
+    border-radius: 100%;
+    margin: 15px;
 }
+
 
 .img{
     width: 100%;
@@ -36,3 +49,11 @@
     border-radius: 50%;
     margin: 0 15px;
 }
+
+
+@media(max-width: 1000px){
+    .flexContainer{
+        flex-direction: column;
+    }
+}
+

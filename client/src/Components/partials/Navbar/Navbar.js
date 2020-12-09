@@ -6,7 +6,7 @@ import classes from './Navbar.module.css';
 
 //======FONT AWESOME ICONS=======//
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 export default function Navbar() {
     const auth = useSelector(state => state.auth);
@@ -31,6 +31,7 @@ export default function Navbar() {
                         {!auth.isAuthenticated ? <Link to="/login" >Login</Link> : <Link to={ profilePath } >Profile</Link>}
                         {!auth.isAuthenticated ? <Link to="/signup" >Sign Up</Link> : <Link to="/node">Node</Link>}
                         {auth.isAuthenticated ? <Link to="#" onClick={()=>dispatch(logoutUser())}>Logout</Link> : null}
+                        {auth.isAuthenticated ? <Link to="/msg"> <FontAwesomeIcon icon={faEnvelope} /> </Link> : null}
                         {auth.isAuthenticated ? <Link to="/settings"> <FontAwesomeIcon icon={faCog} /> </Link> : null}
                     </div>
                 </div>

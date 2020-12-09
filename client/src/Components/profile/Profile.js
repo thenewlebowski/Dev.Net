@@ -23,6 +23,7 @@ import profilePicture from '../../images/profilePicture.jpg';
     
 class Profile extends Component {
 
+
     state = {
         username : this.props.match.params.username,//string
         profilePic : profilePicture,                //file
@@ -37,6 +38,8 @@ class Profile extends Component {
     }
 
     componentDidMount(){
+        console.log(this.props.auth);
+        console.log(this.props.userId);
         axios.get(process.env.REACT_APP_PROXY + '/p/' + this.props.match.params.username)
             .then(res => {
                 setTimeout(() => {
@@ -151,37 +154,55 @@ class Profile extends Component {
                     <div className={ classes.container } style={props} >
                         {/* Layout Profile design */}
                         <div className={classes.profileHeader}>
-                            <div className={ classes.imgContainer }>
-                                <img src={this.state.profilePic}  className={classes.img} alt="Profile Picture"/>
-                                { this.state.editMode ? <button 
-                                                        className={'btn btnPrimary'}
-                                                        onClick={ this.handleImgModToggle }>Upload</button> : null }
-                                { this.state.editMode ? <button 
-                                                        className={'btn btnWarning'}
-                                                        onClick={this.handleImgModToggle }>Resize</button> : null }
-                            </div>
+                            <div className={classes.flexContainer}>
+                                <div className={ classes.imgContainer }>
+                                    <img src={this.state.profilePic}  className={classes.img} alt="Profile Picture"/>
+
+                                    { this.state.editMode ? 
+                                        <button 
+                                        className   = { 'btn btnPrimary' }
+                                        onClick     = { this.handleImgModToggle }>
+                                        Upload
+                                        </button> 
+                                        : null 
+                                    }
+
+                                    { this.state.editMode ?
+                                        <button 
+                                        className   = { 'btn btnWarning' }
+                                        onClick     = { this.handleImgModToggle }>
+                                        Resize
+                                        </button> 
+                                        : null
+                                    }
+
+                                </div>
                             
-                            {this.state.editMode ? 
-                                <ProfileEdit
-                                editToggle  = { this.handleEditModeToggle }
-                                username    = { this.state.username }
-                                auth        = { this.props.auth }
-                                languages   = { this.languages }
-                                data        = { this.state }
-                                /> 
-                                :  
-                                <ProfileDesc 
-                                editToggle  = { this.handleEditModeToggle}
-                                username    = { this.state.username }
-                                editMode    = { this.state.editMode }
-                                userId      = { this.state.userId }
-                                langs       = { this.state.langs }
-                                auth        = { this.props.auth }
-                                bio         = { this.state.bio }
-                                languages   = { this.languages }
-                                />}
+                                {this.state.editMode ? 
+                                    <ProfileEdit
+                                    editToggle  = { this.handleEditModeToggle }
+                                    username    = { this.state.username }
+                                    auth        = { this.props.auth }
+                                    languages   = { this.languages }
+                                    data        = { this.state }
+                                    /> 
+                                    :  
+                                    <ProfileDesc 
+                                    editToggle  = { this.handleEditModeToggle}
+                                    username    = { this.state.username }
+                                    editMode    = { this.state.editMode }
+                                    userId      = { this.state.userId }
+                                    langs       = { this.state.langs }
+                                    auth        = { this.props.auth }
+                                    bio         = { this.state.bio }
+                                    languages   = { this.languages }
+                                    />
+                                }
+                            </div>
 
                         </div>
+
+                         
 
                         {/* Posts contaibner */}
                         <div className={ classes.postsContainer }>

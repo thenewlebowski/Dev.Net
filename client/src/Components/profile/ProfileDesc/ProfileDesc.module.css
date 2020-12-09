@@ -6,7 +6,13 @@
 }
 
 .profileDesc{
-    margin-left: 15px;
+    transition: all .5s;
+    background-color: #0B2027;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #F6F1D1;
+    margin: 10px;
     width: 75%;
 }
 
@@ -24,6 +30,29 @@
 
 .langsContainer{
     margin: 0 15px;
+}
+
+@media(max-width: 1000px){
+    .profileDesc{
+        margin: 15px;
+        width: 95%;
+    }
+
+    
+}
+
+@media(max-width: 600px){
+    .infoContainer{
+        /* font-size: .85rem; */
+        flex-direction: column;
+        align-items: center;
+    }
+    .langsContainer ul{
+        list-style-type: none;
+        display: flex;
+        padding: 0;
+        justify-content: space-between;
+    }
 }
 
 
