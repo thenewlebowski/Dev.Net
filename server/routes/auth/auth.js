@@ -26,13 +26,15 @@ router.route('/register').post((req, res) =>{
 
     User.findOne({username: req.body.username}).then(user => {
         if(user){
-            return res.status(400).json({username: 'Username already exists'});
+            return res.status(404).json({flag: {err: 'Username already exists please try a different one'}});
+            // return res.status(400).json({username: 'Username already exists'});
         }
     })
 
     User.findOne({ email: req.body.email }).then(user => {
         if(user){
-            return res.status(400).json({ email: 'Email already exists' });
+            return res.status(404).json({flag: {err: 'Email exists, forget your password? Try the link below to reset it!'}});
+            // return res.status(400).json({ email: 'Email already exists' });
         } else {
             newUser = new User({
                 firstName:  req.body.firstName,
@@ -88,7 +90,7 @@ router.route('/login').post((req, res) => {
     User.findOne({ email }).then(user => {
     // Check if user exist
         if(!user){
-            return res.status(404).json({ emailNotFound: 'Email not found'})
+            return res.status(404).json({flag: {err: 'Incorrect email or password try again or reset your password'}});
         }
     //Check password
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -121,9 +123,7 @@ router.route('/login').post((req, res) => {
                     }
                 );
             } else {
-                return res
-                    .status(400)
-                    .json({ passwordIncorrect: 'Password incorrect' });
+                return res.status(404).json({flag: {err: 'Incorrect email or password try again or reset your password'}});
             }
         });
     });
