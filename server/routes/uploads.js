@@ -1,5 +1,5 @@
 var express = require('express');
-var Image = require('../models/image');
+var Image = require('../models/Image');
 var ImageRouter = express.Router();
 const multer = require('multer');
 
