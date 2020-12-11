@@ -10,9 +10,10 @@ import {
 //=========STYLING========//
 import classes from './Flag.module.css';
 
-export default function Flag() {
+export default function Flag(props) {
 
-    const [classesArr, setClassesArr] = useState([classes.flag])
+    const [classesArr, setClassesArr]   = useState([classes.flag]);
+    const [pathName, setPathName]       = useState(window.location.pathanme);
 
     const dispatch = useDispatch();
     
@@ -21,9 +22,11 @@ export default function Flag() {
     const success   = state.success;
     const error     = state.error;
 
+    //if href changes remove flag
     useEffect(()=> {
+        console.log(window.location.pathname);
         // dispatch(setFlagSuccess('Success'))
-    },[])
+    },[pathName])
 
     useEffect(()=>{
         if(success) setClassesArr([...classesArr, classes.success]);
@@ -34,13 +37,14 @@ export default function Flag() {
         setTimeout(() => {
             //set back to default styling
             setClassesArr([classes.flag]);
-
-            setTimeout(() => {
-                //set flag state back to inital state
-                if( success ) dispatch(setFlagSuccess(null));
-                if( error ) dispatch(setFlagError(null));
-            }, 500)
-            
+            if(success || error)
+            {
+                setTimeout(() => {
+                    //set flag state back to inital state
+                    if( success ) dispatch(setFlagSuccess(null));
+                    if( error ) dispatch(setFlagError(null));
+                }, 500)
+            } 
         }, 5000)
 
         return () => {
