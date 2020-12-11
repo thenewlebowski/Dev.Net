@@ -34,6 +34,12 @@ const userSchema = new Schema({
             ref: 'profile',
         }
     },
+    discussions : {
+        id : {
+            type: Schema.Types.ObjectId,
+            ref: 'discussion',
+        }
+    },
     isAdmin : {
         type: Boolean,
         required: true,
@@ -45,4 +51,4 @@ const userSchema = new Schema({
     }
 })
 
-module.exports = User = mongoose.model('users', userSchema)
+module.exports = User = mongoose.model('users', userSchema);

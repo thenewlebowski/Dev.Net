@@ -12,12 +12,13 @@ let logger = require('morgan');
 
 
 //Require Routes
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
-let imageRouter = require('./routes/uploads');
-let authRouter = require('./routes/auth/auth');
-let profileRouter = require('./routes/profile');
+let indexRouter    = require('./routes/index');
+let usersRouter    = require('./routes/users');
+let imageRouter    = require('./routes/uploads');
+let profileRouter  = require('./routes/profile');
 let homePageRouter = require('./routes/homepage');
+let authRouter     = require('./routes/auth/auth');
+let discussRouter  = require('./routes/discussions');
 
 let app = express();
 
@@ -50,6 +51,7 @@ app.use('/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/p', profileRouter);
 app.use('/api/image', imageRouter);
+app.use('/api/discuss', discussRouter);
 app.use('/api/homepage', homePageRouter);
 
 // catch 404 and forward to error handler
