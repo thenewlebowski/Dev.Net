@@ -34,12 +34,12 @@ const userSchema = new Schema({
             ref: 'profile',
         }
     },
-    discussions : {
-        id : {
+    discussions : [
+        {
             type: Schema.Types.ObjectId,
             ref: 'discussion',
         }
-    },
+    ],
     isAdmin : {
         type: Boolean,
         required: true,

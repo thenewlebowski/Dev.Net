@@ -5,7 +5,8 @@ const   discussionSchema = new Schema({
     user : { 
         id: {
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            required : true,
+            ref: 'user',
         },
         username : {
             type: String, 

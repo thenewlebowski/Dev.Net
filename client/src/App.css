@@ -74,7 +74,7 @@ body, html {
 .btnSuccess{
   color: #fff;
   border-color: #ccc;
-  background-color: #28a745;
+  background-color: #83E8BA;
 }
 
 .btnPrimary{
@@ -86,4 +86,22 @@ body, html {
 .btnSmall{
     font-size: 5px !important;
     padding: 2px 6px !important;
+}
+
+.errSpan{
+  transition: opacity .5s;
+  color:  #dc3545;
+  opacity: 0;
+}
+
+.o-1{
+  opacity: 1;
+}
+
+.o-0{
+  opacity: 0;
+}
+
+.ta-r {
+  text-align: right;
 }
