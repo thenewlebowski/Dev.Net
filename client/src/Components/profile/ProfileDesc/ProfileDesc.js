@@ -2,6 +2,10 @@ import React, { useEffect }    from 'react';
 import isEmpty  from 'is-empty';
 import classes  from './ProfileDesc.module.css';
 
+//============COMPONENTS=============\\
+import Discuss from '../../discussion/CreateDiscussion/CreateDiscussion';
+
+
 
 export default function ProfileDesc(props) {
     //Checks to see if user is authenticated and if user viewing profile is profile owner
@@ -44,9 +48,16 @@ export default function ProfileDesc(props) {
                 <div className={ classes.langsContainer }>
                     <h5>Fluent languages:</h5>
                     {props.langs.length > 0 ? <ul>{ langs(props.langs) }</ul> : <em>No languages yet</em>}
-                    
                 </div>
             </div>
+
+            {/* Checks if current user is the owner of profile and displays CreatePost if so */}
+            {profileOwner ? 
+                <Discuss />
+                :
+                null
+            }
+
         </div>
     )
 }

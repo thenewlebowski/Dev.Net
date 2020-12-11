@@ -13,7 +13,7 @@ const profileSchema = new Schema({
         default: [],
         required: false,
    },
-   descussions: {
+   discussions: {
        id: {
             type: Schema.Types.ObjectId,
             ref: 'descussion'
