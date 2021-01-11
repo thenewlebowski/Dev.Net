@@ -53,7 +53,9 @@ export default function ProfileDesc(props) {
 
             {/* Checks if current user is the owner of profile and displays CreatePost if so */}
             {profileOwner ? 
-                <Discuss />
+                <Discuss 
+                    addDiscussion = {props.addDiscussion}
+                />
                 :
                 null
             }

@@ -37,7 +37,7 @@ const userSchema = new Schema({
     discussions : [
         {
             type: Schema.Types.ObjectId,
-            ref: 'discussion',
+            ref: 'discussions',
         }
     ],
     isAdmin : {

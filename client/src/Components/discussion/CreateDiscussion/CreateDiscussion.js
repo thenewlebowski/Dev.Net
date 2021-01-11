@@ -17,20 +17,18 @@ import {
 } from '../../../actions/flagActions';
 
 
-export default function CreateDiscussion() {
+
+export default function CreateDiscussion(props) {
 
     const dispatch = useDispatch();
-
-    
 
     let [ errClass, setErrClass ] = useState(['errSpan', 'o-0']);
     let [ errors, setErrors ] = useState({});
     let [ title, setTitle ] = useState("");
     let [ body, setBody ] = useState("");
-    let [ tag, setTag ] = useState([]);
+    let [ tags, setTags ] = useState([]);
 
     useEffect(() => {
-        console.log(errors);
         //clean up errors after error occurs
         if(!isEmpty(errors)){
             setTimeout(() => {
@@ -44,8 +42,24 @@ export default function CreateDiscussion() {
         }
     }, [errors])
 
-    let typeClick = (e) => {
+    //tag button listener
+    const handleTagChange = (e, type) => {
         e.preventDefault();
+        let arr = [...tags, type];
+        //  arr = _.xor(arr, type);
+        // arr.filter((item, index) => )
+        // arr.forEach((item, index) => {
+        //     item === type ? arr.splice(index - 1, 1) : arr.push(type);
+        // });
+        // if(arr.length < 1 ) arr.push(type);
+
+        
+        // let arr = [...tag, type];
+        // console.log(arr);
+        // arr = findDuplicates(arr);
+        // console.log(arr);
+        setTags(arr)
+        // console.log(tag);
     }
 
     const formSubmit = (e) => {
@@ -56,13 +70,13 @@ export default function CreateDiscussion() {
         const data = {
             title,
             body,
-            tag
+            tags
         }
 
        
+        //error handling 
         if(isEmpty(data.title) || isEmpty(data.body)) {
             let currErr = {}
-             //error handling 
             const errStrings = {
                 title : "Please enter topic",
                 body  : "Please enter in a more elaborate discussion",
@@ -74,11 +88,17 @@ export default function CreateDiscussion() {
             return
         }
 
+
         //pass discussion data
         axios.post(process.env.REACT_APP_PROXY + '/discuss/create', data)
             .then((res)=> {
+                //set form back to default values
+                setTitle('');
+                setBody('');
+                setTags([]);
                 // dispatch success flag
-                console.log(res);
+                //adds discussion to parent element
+                props.addDiscussion(data);
                 // dispatch(setFlagSuccess(res.data.flag.success ))
             })
             .catch((err, res) => {
@@ -113,6 +133,7 @@ export default function CreateDiscussion() {
                 <input
                 name="title"
                 onChange = {(e) => setTitle(e.target.value)}
+                value = {title}
                 className={classes.postInput}
                 type='text' 
                 />
@@ -135,7 +156,8 @@ export default function CreateDiscussion() {
                     <div className={ classes.postInputCntr}>
                         <input
                         onChange = {(e) => setBody(e.target.value)}
-                        className={classes.postInput}
+                        value = { body }
+                        className={ classes.postInput }
                         type='text' 
                         />
                         
@@ -151,34 +173,42 @@ export default function CreateDiscussion() {
                 className={classes.typeCtnr}
                 >
                     <button
-                    onClick={ (e) => typeClick(e) }
+                    value="react"
+                    onClick={ (e) => handleTagChange(e, 'react') }
                     className={classes.typeInput + ' ' + classes.react}
                     >
                         <FontAwesomeIcon icon={ faReact } />
                     </button>
 
                     <button
-                    onClick={ (e) => typeClick(e) }
+                    value="angular"
+                    onClick={ (e) => handleTagChange(e, 'angular') }
                     className = {classes.typeInput + ' ' + classes.angular}
                     >
                         <FontAwesomeIcon icon={ faAngular } />
                     </button>
 
                     <button
-                    onClick={ (e) => typeClick(e) }
+                    value="vue"
+                    onClick={ (e) => handleTagChange(e, 'vue') }
                     className={ classes.typeInput + ' ' + classes.vue }
                     >
                         <FontAwesomeIcon icon={ faVuejs } />
                     </button>
 
                     <button
-                    onClick={ (e) => typeClick(e) }
+                    value='laravel'
+                    onClick={ (e) => handleTagChange(e, 'laravel') }
                     className={classes.typeInput + ' ' + classes.laravel}
                     >
-                        <FontAwesomeIcon icon={ faLaravel } />
+                        <FontAwesomeIcon
+                        icon={ faLaravel } 
+                        />
                     </button>
+
                     <button
-                    onClick={ (e) => typeClick(e) }
+                    value="other"
+                    onClick={ (e) => handleTagChange(e, 'other') }
                     className={classes.typeInput + ' ' + classes.ellipsis}
                     >
                         <FontAwesomeIcon icon={ faEllipsisH } />
