@@ -17,22 +17,26 @@ import {
 export const registerUser = (userData, history) => dispatch => {
     axios.post(process.env.REACT_APP_PROXY + '/auth/register', userData)
         .then(res => history.push('/login'))
-        .catch(err => dispatch(setFlagError(err.response.data.flag.error)));
-        // .catch(err => dispatch({
-        //         type:GET_ERRORS,
-        //         payload: err.response.data
-        //     }
-        // )
-    // )
+        // .catch(err => dispatch(setFlagError(err.response.data.error)));
+        .catch(err => dispatch({
+                type:GET_ERRORS,
+                payload: err.response.data
+            }
+        )
+    )
 }
 //login user action
 export const loginUser = (userData, history) => dispatch =>{
     axios.post(process.env.REACT_APP_PROXY + '/auth/login', userData )
         .then(res => {
-            //set token to local storage
-            const { token } = res.data;
+            //set token and admin to local storage
+            const { 
+                token,
+                admin 
+            } = res.data;
+
             localStorage.setItem('jwtToken', token);
-            //set token to auth header
+            //set storage tokens
             setAuthToken(token);
             //decode token to get user data
             const decoded = jwt_decode(token);
