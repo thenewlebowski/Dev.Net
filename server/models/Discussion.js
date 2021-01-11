@@ -21,6 +21,10 @@ const   discussionSchema = new Schema({
         type: String,
         required: true,
     },
+    tags : {
+        type : Array,
+        required : false,
+    }
 })
 
 module.exports = Discussion = mongoose.model('discussions', discussionSchema)
