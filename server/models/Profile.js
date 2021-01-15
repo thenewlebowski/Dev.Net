@@ -5,21 +5,14 @@ const   mongoose = require('mongoose'),
 const profileSchema = new Schema({
    bio: {
        type: String,
-       required: true,
-       default: ''
+       default: '',
+       required: false,
    },
    langs: {
         type: Schema.Types.Mixed,
         default: [],
         required: false,
    },
-   discussions: {
-       id: {
-            type: Schema.Types.ObjectId,
-            ref: 'descussion'
-        },
-        required : false
-    },
    user : {
         id: {
             type: Schema.Types.ObjectId,

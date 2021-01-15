@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import './App.css';
+import './app.css';
 
 //=========REDUX===========
 import { Provider } from 'react-redux';
@@ -44,7 +44,7 @@ if(localStorage.jwtToken){
 }
 
 
-function App() {
+function app() {
   return (
     <Provider store={ store }>
       <div className="app">
@@ -57,6 +57,8 @@ function App() {
             {/* Auth Routes */}
             <Route path="/signup"       exact component={ Signup }/>
             <Route path="/login"        exact component={ Login }/>
+            {/* {( window.origin + '/admin')} */}
+            {/* <Route path="/admin"        exact component={ ()=> window.location = window.origin + '/admin' }/> */}
           </Switch>
           {/* <Footer params={window.location.pathname}/> */}
         </Router>
@@ -66,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default app;
