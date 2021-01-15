@@ -44,7 +44,7 @@ if(localStorage.jwtToken){
 }
 
 
-function App() {
+function app() {
   return (
     <Provider store={ store }>
       <div className="app">
@@ -68,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default app;
