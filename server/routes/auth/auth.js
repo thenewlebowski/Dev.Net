@@ -24,17 +24,21 @@ router.route('/register').post((req, res) =>{
         return res.status(400).json(errors);
     }
 
-    User.findOne({username: req.body.username}).then(user => {
+    //lower case request email
+    req.body.email    = req.body.email.toLowerCase();
+
+    //only want to check if user name exists already lowercase 
+    User.findOne({username: req.body.username.toLowerCase()}).then(user => {
         if(user){
-            return res.status(404).json({flag: {err: 'Username already exists please try a different one'}});
-            // return res.status(400).json({username: 'Username already exists'});
+            // return res.status(404).json({flag: {err: 'Username already exists please try a different one'}});
+            return res.status(400).json({username: 'Username already exists'});
         }
     })
 
     User.findOne({ email: req.body.email }).then(user => {
         if(user){
-            return res.status(404).json({flag: {err: 'Email exists, forget your password? Try the link below to reset it!'}});
-            // return res.status(400).json({ email: 'Email already exists' });
+            // return res.status(404).json({flag: {err: 'Email exists, forget your password? Try the link below to reset it!'}});
+            return res.status(400).json({ email: 'Email already exists' });
         } else {
             newUser = new User({
                 firstName:  req.body.firstName,
@@ -49,7 +53,8 @@ router.route('/register').post((req, res) =>{
                 user: {
                     id: newUser.id,
                     username: newUser.username
-                }
+                },
+                bio: ''
             })
             newProfile.save();
             newUser.profile.id = newProfile.id;
@@ -83,7 +88,7 @@ router.route('/login').post((req, res) => {
         return res.status(400).json(errors);
     }
 
-    const   email = req.body.email,
+    const   email    = req.body.email,
             password = req.body.password;
 
 //Find user by email
@@ -117,8 +122,9 @@ router.route('/login').post((req, res) => {
                         user.token = token;
                         user.save();
                         res.json({
+                            admin:   user.isAdmin,
                             success: true,
-                            token: token,
+                            token:   token,
                         });
                     }
                 );
