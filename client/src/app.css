@@ -105,3 +105,49 @@ body, html {
 .ta-r {
   text-align: right;
 }
+
+/* Tooltip container */
+.tool-tip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tool-tip .tool-tip-text {
+  visibility: hidden;
+  /* width: 120px; */
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-left: -60px;
+
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: -200%;
+  left: 50%;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tool-tip .tool-tip-text::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tool-tip:hover .tool-tip-text {
+  visibility: visible;
+  opacity: 1;
+}
