@@ -1,0 +1,9 @@
+
+
+/* Editor Js styling to match the CoreUI */
+.editor-js-container{
+    border: 1px solid;
+    border-color: #d8dbe0;
+    color: #768192;
+    border-radius: 0.25rem;
+}
