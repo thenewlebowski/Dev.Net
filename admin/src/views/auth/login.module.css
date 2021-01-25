@@ -1,0 +1,14 @@
+.container {
+    height: 100vh;
+}
+
+.jumbotron {
+    text-align: center;
+    position: relative;
+    top: 25%;
+}
+
+.btnContainer{
+    display: flex;
+    justify-content: space-around;
+}

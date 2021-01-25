@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
-import './App.css';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-// import { Dashboard } from './views/index';
+import { PrivateRoute } from "./utils/PrivateRoute";
+import Login from './views/auth/login';
+import checkJWT from './checkJWT';
+import React from 'react';
+import './App.css';
+
 import './scss/style.scss';
 
 const Layout = React.lazy(() => import('./containers/Layout'));
 
 function App() {
+
+  //check if jwt exists 
+  checkJWT();
 
   const loading = (
     <div className="pt-3 text-center">
@@ -18,8 +24,8 @@ function App() {
       <HashRouter>
           <React.Suspense fallback={loading}>
             <Switch>
-              <Route path="/" name="Home" render={props => <Layout {...props}/>} />
-              {/* <Route path="/" name="Home" render={props => <Dashboard {...props}/>} /> */}
+              <Route path="/login" exact name="Login" render={props => <Login /> } />
+              <PrivateRoute path = "/" name="PrivateRoute" component={props => <Layout {...props} /> } />
             </Switch>
      </React.Suspense>
      </HashRouter>

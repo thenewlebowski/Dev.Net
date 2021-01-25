@@ -1,9 +1,9 @@
 import React from 'react'
 import { CFooter } from '@coreui/react'
 
-const TheFooter = () => {
+const TheFooter = (props) => {
   return (
-    <CFooter fixed={false}>
+    <CFooter fixed={props.fixed ? props.fixed : false}>
       <div>
         <a href="https://dev.node" target="_blank" rel="noopener noreferrer">DevNode</a>
         <span className="ml-1">&copy; 2020 DevNode</span>

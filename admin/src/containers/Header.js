@@ -11,6 +11,7 @@ import {
   CBreadcrumbRouter,
   CLink
 } from '@coreui/react'
+import { logoutUser } from '../actions/authActions'
 // import CIcon from '@coreui/icons-react'
 
 // routes config
@@ -59,6 +60,9 @@ const Header = () => {
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink>Settings</CHeaderNavLink>
+        </CHeaderNavItem>
+        <CHeaderNavItem className="px-3">
+          <CHeaderNavLink onClick={() => dispatch(logoutUser())}>Logout</CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 {/* 

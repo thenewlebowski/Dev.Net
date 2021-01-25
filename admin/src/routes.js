@@ -20,7 +20,7 @@ import React from 'react';
 // const Switches = React.lazy(() => import('./views/base/switches/Switches'));
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
-const NewBlog   = React.lazy(() => import('./views/blog/Form'));
+const NewBlog   = React.lazy(() => import('./views/post/Form'));
 
 // const Tabs = React.lazy(() => import('./views/base/tabs/Tabs'));
 // const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'));
