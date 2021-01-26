@@ -21,17 +21,40 @@ import {
 import EditorJs from 'react-editor-js';
 import { EDITOR_JS_TOOLS } from '../../tool';
 
+
+
 export default function Form() {
-    let [ title, setTitle ] = useState('');
-    let [ date, setDate ] = useState(Date.now());
-    let [ body, setBody ] = useState('');
+    let [ editorJS, setInstance ] = useState('');
+    let [ title, setTitle ]       = useState('');
+    let [ date, setDate ]         = useState('');
 
     const state = useSelector(state => state);
+
+    const testBody = (e) => {
+      console.log(e);
+    }
     
     const btnSubmit = () => {
-      axios.post(process.env.REACT_APP_PROXY + "/admin/post/create")
-        .then((res) => console.log(res))
-        .catch(err => console.log(err))
+      const data = 
+      {
+        title,
+        date,
+      }
+      
+      editorJS.save()
+        .then(output => {
+          data.body = output;
+          axios.post(process.env.REACT_APP_PROXY + "/post/create", data)
+            .then(res  => console.log(res))
+            .catch(err => console.log(err))
+        })
+        .catch(err => console.log('[Form Submit] Add error handling'))
+    }
+
+   
+    const handleSave = async () => {
+      const savedData = await this.editorInstance.save();
+      console.log(savedData);
     }
 
     const btnReset = () => {
@@ -54,7 +77,7 @@ export default function Form() {
                     <CLabel htmlFor="title-input">Title</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput id="title-input" name="title-input" placeholder="Title" onChange={e => setTitle(e.value)}/>
+                    <CInput id="title-input" name="title-input" placeholder="Title" onChange={e => setTitle(e.target.value)}/>
                     <CFormText>Come up with a clever title that will attract a brilliant audience</CFormText>
                   </CCol>
                 </CFormGroup>
@@ -64,7 +87,7 @@ export default function Form() {
                     <CLabel htmlFor="date-input">*Date</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="date" id="date-input" name="date-input" placeholder="date" value={date} onChange={e => setDate(e.value)}/>
+                    <CInput type="date" id="date-input" name="date-input" placeholder="date"  value={date} onChange={e => setDate(e.target.value)}/>
                     <CFormText>What date do you want this post to go live <i>(optional)</i></CFormText>
                   </CCol>
                 </CFormGroup>
@@ -78,6 +101,8 @@ export default function Form() {
                         <EditorJs
                         style={{border: '1px solid black'}}
                         tools={ EDITOR_JS_TOOLS }
+                        instanceRef={instance => setInstance(instance)}
+                        data={editorJS}
                         />
                       </div>
                     </CCol>
