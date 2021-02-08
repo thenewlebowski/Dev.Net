@@ -10,8 +10,8 @@ const   validateLoginInput    = require('../../validation/auth/login');
 const   Admin = require('../../models/Admin');        
 
 /**
-  *@route POST api/auth/login
-  *@desc Login and return JWT token
+  *@route  POST api/auth/login
+  *@desc   Login and return JWT token
   *@access Public
   */
 
@@ -30,7 +30,7 @@ const   Admin = require('../../models/Admin');
     Admin.findOne({ email }).then(user => {
     // Check if user exist
         if(!user){
-            return res.status(404).json({flag: {err: 'Incorrect email or password try again or reset your password'}});
+            return res.status(404).json({err: 'Incorrect email or password try again or reset your password'});
         }
     //Check password
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -53,8 +53,6 @@ const   Admin = require('../../models/Admin');
                         expiresIn: 31556926 //1 year in seconds
                     },
                     (err, token) => {
-                        
-                        token = 'Bearer ' + token;
                         res.json({
                             success: true,
                             token:   token,
