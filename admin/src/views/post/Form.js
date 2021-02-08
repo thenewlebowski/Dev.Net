@@ -50,13 +50,7 @@ export default function Form() {
         })
         .catch(err => console.log('[Form Submit] Add error handling'))
     }
-
-   
-    const handleSave = async () => {
-      const savedData = await this.editorInstance.save();
-      console.log(savedData);
-    }
-
+    
     const btnReset = () => {
       //reset all values back to empty
     }
