@@ -1,5 +1,5 @@
 const   mongoose = require('mongoose'),
-        Schema = mongoose.Schema;
+        Schema   = mongoose.Schema;
 
 
 const profileSchema = new Schema({
@@ -16,7 +16,7 @@ const profileSchema = new Schema({
    user : {
         id: {
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'User'
         },
         username : {
             type: String, 

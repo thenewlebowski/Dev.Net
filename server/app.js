@@ -1,26 +1,25 @@
-const cors = require('cors'),
-      express = require('express'),
-      mongoose = require('mongoose'),
-      passport = require('passport'),
-      bodyParser = require('body-parser');
-      
+const cors        = require('cors'),
+      logger      = require('morgan'),
+      express     = require('express'),
+      mongoose    = require('mongoose'),
+      passport    = require('passport'),
+      bodyParser  = require('body-parser'),
+      createError = require('http-errors'),
+      seeds       = require('./seeds/seeds');
 
-
-
-let createError = require('http-errors');
-let logger = require('morgan');
-
+let app = express();
 
 //Require Routes
+let postRouter     = require('./routes/posts');
 let indexRouter    = require('./routes/index');
 let usersRouter    = require('./routes/users');
 let imageRouter    = require('./routes/uploads');
 let profileRouter  = require('./routes/profile');
-let homePageRouter = require('./routes/homepage');
 let authRouter     = require('./routes/auth/auth');
 let discussRouter  = require('./routes/discussions');
 
-let app = express();
+//seed database
+// seeds();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -29,15 +28,15 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use('/uploads', express.static('uploads'));
 require('dotenv').config({ debug: process.env.DOTENV_DEBUG });
 
-app.use(cors());
-app.use(express.json());
-app.use(express.static(__dirname + "/public"));
-
 //Connect to DB
 mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.connection.once('open', ()=>{
     console.log('MongoDB database connection established successfully')
 });
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static(__dirname + "/public"));
 
 //PASSPORT MIDDLEWARE
 app.use(passport.initialize());
@@ -50,9 +49,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/p', profileRouter);
+app.use('/api/posts', postRouter);
 app.use('/api/image', imageRouter);
 app.use('/api/discuss', discussRouter);
-app.use('/api/homepage', homePageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

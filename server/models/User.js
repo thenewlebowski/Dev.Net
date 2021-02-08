@@ -31,24 +31,20 @@ const userSchema = new Schema({
     profile: {
         id: {
             type: Schema.Types.ObjectId,
-            ref: 'profile',
+            ref: 'Profile',
         }
     },
     discussions : [
         {
             type: Schema.Types.ObjectId,
-            ref: 'discussions',
+            ref: 'Discussion',
         }
     ],
     isAdmin : {
         type: Boolean,
         required: true,
         default: false,
-    },
-    token   : {
-        type: String,
-        required: false,
     }
 })
 
-module.exports = User = mongoose.model('users', userSchema);
+module.exports = User = mongoose.model('User', userSchema);

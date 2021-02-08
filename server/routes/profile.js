@@ -1,4 +1,5 @@
-const   router      = require('express').Router();
+const   router      = require('express').Router(),
+        decode  = require('jwt-decode');
 
 // Load Models
 const   Profile     = require('../models/Profile');
@@ -12,17 +13,17 @@ router.route('/:username').get((req, res) => {
     process.env.ENV !== "production" ? console.log('[Profile Route] ' + req.params.username) : null;
     User.findOne({ username : req.params.username }, (err, user)=>{
         //Checks if mongoose returns an error if so also check if in production and respond accordingly
-        if(err)         return process.env.ENV !== "production" ? res.status(400).json({err: err}) : res.status(404).json({err: "User not found"}); 
+        if(err)  return process.env.ENV !== "production" ? res.status(400).json({err: err}) : res.status(404).json({err: "User not found"}); 
         
         //Checks if mongoose returns nothing return a 404 not found error
-        if(!user)    return res.status(404).json({err : "User not found"});
+        if(!user)  return res.status(404).json({err : "User not found"});
         
         Profile.findOne({_id : user.profile.id }, (err, profile)=>{
             //Checks if mongoose returns an error if so also check if in production and respond accordingly
-            if(err)         return process.env.ENV !== "production" ? res.status(400).json({err: err}) : res.status(404).json({err: "Profile not found"}); 
+            if(err) return process.env.ENV !== "production" ? res.status(400).json({err: err}) : res.status(404).json({err: "Profile not found"}); 
 
             //Checks if mongoose returns nothing return a 404 not found error
-            if(!profile)    return res.status(404).json({err : "Profile not found"});          
+            if(!profile) return res.status(404).json({err : "Profile not found"});          
             
             return res.json(profile);
         })
@@ -34,10 +35,11 @@ router.route('/:username').get((req, res) => {
  * @author Colton Nielsen
  */
 router.route('/edit').post((req, res) => {
-    return res.status(404).json({flag: {err: 'Need to set this path to work with JWT verification sooner then later'}});
-    //Find user by token given in headers
-    //Need to turn this 
-    User.findOne({  token: req.headers.authorization }, (err, user)=>{
+    // return res.status(404).json({flag: {err: 'Need to set this path to work with JWT verification sooner then later'}});
+    //Find user by decoded jwt
+    let jwt = decode(req.headers.authorization);
+    User.findByOne( {user: { id : jwt.id }} , (err, prf)=>{
+        return console.log(prf);
         //Checks if mongoose returns an error if so also check if in production and respond accordingly
         if(err)         return process.env.ENV !== "production" ? res.status(400).json({flag: {err: err}}) : res.status(404).json({flag: {error: "There was an error trying to process your request. Please try again later"}});
 

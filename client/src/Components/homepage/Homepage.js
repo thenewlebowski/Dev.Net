@@ -4,14 +4,14 @@ import isEmpty  from 'is-empty';
 
 //=======REACT COMPONENTS======//
 import { Helmet } from 'react-helmet';
+import Hero       from './hero/Hero';
+import Desc       from './desc/Desc';
+import Hero2      from './hero2/Hero2';
+import Hero3      from './hero3/Hero3';
 import { Loader } from 'react-loader-spinner';
 import { Spring } from 'react-spring/renderprops';
+import RecentPost from '../reusable/EditorParser';
 
-//=======COMPONENTS========//
-import Hero     from './hero/Hero';
-import Desc     from './desc/Desc';
-import Hero2    from './hero2/Hero2';
-import Hero3    from './hero3/Hero3';
 
 //=======FONT AWESOME ICONS=======//
 import { faBug, faNewspaper, faBomb, faChevronCircleRight, faTshirt, faStoreAlt } from '@fortawesome/free-solid-svg-icons';
@@ -23,9 +23,24 @@ export default class Homepage extends Component {
     }
     //========Component Render========//
     componentDidMount(){
-        axios.get(process.env.REACT_APP_PROXY + '/homepage/recentpost')
+        axios.get(process.env.REACT_APP_PROXY + '/posts/recent')
             .then( res => {
                 console.log(res.data)
+                //sort over recent post data
+                const post = res.data.blocks.map((data, i) => {
+                    //only want header and first paragraph
+                    switch (data.type) {
+                        case 'paragraph' :
+                            return data.data.text.substring(0, 200) + '...'
+                        case 'header'    :
+                            return data.data.text
+                        default :
+                            return null
+                    }
+
+                    if(typeof data === 'paragraph') console.log(data);
+                })
+                console.log(post);
                 this.setState({recentPost: res.data})
             })
             .catch( err=>{
@@ -34,14 +49,14 @@ export default class Homepage extends Component {
                     recentPost: process.env.REACT_APP_ENVIRONMENT !== "production" ? 
                     {
                         header: "ERROR",
-                        body: "err.data",
+                        body: err.data,
                         err: true
                     }
                     : 
                     {
                         //for now we handle errors on the client side. ===NOTE=== Look into implementing this on server side
                         header: "Whoops",
-                        body: "Our developers have been notified and are trying to solve the solution right now. We may be implementing some new changes that will blow your socks off. Check back in awhile to see if anything has changed",
+                        body: "Our developers have been notified and are trying to solve the issue right now. We may be implementing some new changes that will blow your socks off. Check back in awhile to see if anything has changed",
                         href: '/posts',
                         btnText: 'Take me to the other posts',
                         iconBug: faBug,
@@ -91,8 +106,9 @@ export default class Homepage extends Component {
 
                     <Hero3 />
 
-                    {!isEmpty(this.state.recentPost) ? 
+                    
                     <span>
+                        {/* <RecentPost /> */}
                         <Desc
                             iconHeader={ this.state.recentPost.err ?  faBug : faNewspaper }
                             iconBtn={ this.state.recentPost.err ? faBomb : faChevronCircleRight }
@@ -104,7 +120,7 @@ export default class Homepage extends Component {
                             zIndex='1004'
                         />
                         <Hero3 />
-                    </span> : null}
+                    </span> 
 
                 </div>
                 }

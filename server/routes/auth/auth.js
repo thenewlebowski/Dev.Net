@@ -20,9 +20,7 @@ const   User    = require('../../models/User'),
 router.route('/register').post((req, res) =>{
     const { errors, isValid } = validateRegisterInput(req.body);
 //Check validation
-    if(!isValid) {
-        return res.status(400).json(errors);
-    }
+    if(!isValid) return res.status(400).json(errors);
 
     //lower case request email
     req.body.email    = req.body.email.toLowerCase();
@@ -83,22 +81,21 @@ router.route('/register').post((req, res) =>{
 router.route('/login').post((req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 
-//Check validation
+    //Check validation
     if(!isValid) {
         return res.status(400).json(errors);
     }
 
     const   email    = req.body.email,
             password = req.body.password;
-
-//Find user by email
+    //Find user by email
     User.findOne({ email }).then(user => {
     // Check if user exist
-        if(!user){
-            return res.status(404).json({flag: {err: 'Incorrect email or password try again or reset your password'}});
-        }
+    if(!user) return res.status(404).json({flag: {err: 'Incorrect email or password try again or reset your password'}});
+
     //Check password
         bcrypt.compare(password, user.password).then(isMatch => {
+    
             if(isMatch) {
             //User matched
             //Create JWT Payload
@@ -118,13 +115,9 @@ router.route('/login').post((req, res) => {
                         expiresIn: 31556926 //1 year in seconds
                     },
                     (err, token) => {
-                        token = 'Bearer ' + token;
-                        user.token = token;
-                        user.save();
                         res.json({
-                            admin:   user.isAdmin,
-                            success: true,
                             token:   token,
+                            success: true,
                         });
                     }
                 );

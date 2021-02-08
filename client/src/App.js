@@ -12,17 +12,17 @@ import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 
 //========PARTIAL COMPONENTS=======
-import Navbar from './Components/partials/Navbar/Navbar';
-import Footer from './Components/partials/Footer/Footer';
-import Flag   from './Components/partials/Flag/Flag.js'
+import Navbar from './components/partials/Navbar/Navbar';
+import Footer from './components/partials/Footer/Footer';
+import Flag   from './components/partials/Flag/Flag.js'
 
 //========AUTH COMPONENTS=======
-import Signup from './Components/auth/Signup';
-import Login from './Components/auth/Login';
+import Signup from './components/auth/Signup';
+import Login from './components/auth/Login';
 
 //=======ROUTE COMPONENTS=======
-import Homepage from './Components/homepage/Homepage';
-import Profile from './Components/profile/Profile';
+import Homepage from './components/homepage/Homepage';
+import Profile from './components/profile/Profile';
 
 //Check for token to keep user logged in
 if(localStorage.jwtToken){

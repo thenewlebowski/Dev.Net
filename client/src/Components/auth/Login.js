@@ -6,7 +6,7 @@ import classes from './Auth.module.css';
 
 function Login(props) {
 
-    const [email, setEmail] = useState('');
+    const [email, setEmail]       = useState('');
     const [password, setPassword] = useState('');
 
     const auth = useSelector( state => state.auth);

@@ -30,11 +30,7 @@ export const loginUser = (userData, history) => dispatch =>{
     axios.post(process.env.REACT_APP_PROXY + '/auth/login', userData )
         .then(res => {
             //set token and admin to local storage
-            const { 
-                token,
-                admin 
-            } = res.data;
-
+            const { token } = res.data;
             localStorage.setItem('jwtToken', token);
             //set storage tokens
             setAuthToken(token);
