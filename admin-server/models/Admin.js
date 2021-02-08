@@ -6,17 +6,18 @@ const adminSchema = new Schema({
         required : true,
         default  : 0,
     },
-    posts : {
+    posts : [{
         type: Schema.Types.ObjectId,
-        ref: 'posts',
-    },
+        ref: 'Post',
+    }],
     email : {
         type     : String,
         required : true,
     },
-    postReviews : {
-        type     : Array,
-    },
+    postReviews : [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post',
+    }],
     password : {
         type     : String, 
         required : true,
@@ -33,4 +34,4 @@ const adminSchema = new Schema({
     }
 })
 
-module.exports = Admin = model('admins' , adminSchema)
+module.exports = Admin = model('Admin' , adminSchema)

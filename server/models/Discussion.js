@@ -6,7 +6,7 @@ const   discussionSchema = new Schema({
         id: {
             type: Schema.Types.ObjectId,
             required : true,
-            ref: 'user',
+            ref: 'User',
         },
         username : {
             type: String, 
@@ -27,4 +27,4 @@ const   discussionSchema = new Schema({
     }
 })
 
-module.exports = Discussion = mongoose.model('discussions', discussionSchema)
+module.exports = Discussion = mongoose.model('Discussion', discussionSchema)
