@@ -19,8 +19,9 @@ import React from 'react';
 // const ProgressBar = React.lazy(() => import('./views/base/progress-bar/ProgressBar'));
 // const Switches = React.lazy(() => import('./views/base/switches/Switches'));
 
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
-const NewBlog   = React.lazy(() => import('./views/post/Form'));
+const Dashboard  = React.lazy(() => import('./views/dashboard/Dashboard'));
+const BlogReview = React.lazy(() => import('./views/post/Review'));
+const NewBlog    = React.lazy(() => import('./views/post/Form'));
 
 // const Tabs = React.lazy(() => import('./views/base/tabs/Tabs'));
 // const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'));
@@ -43,8 +44,9 @@ const NewBlog   = React.lazy(() => import('./views/post/Form'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/blog/new', name: 'NewBlog', component: NewBlog}
+  { path: '/blog/review',  name: 'BlogReview', component: BlogReview},
+  { path: '/dashboard',    name: 'Dashboard',  component: Dashboard},
+  { path: '/blog/new',     name: 'NewBlog',    component: NewBlog}
   // { path: '/theme', name: 'Theme', component: Colors, exact: true },
   // { path: '/theme/colors', name: 'Colors', component: Colors },
   // { path: '/theme/typography', name: 'Typography', component: Typography },
